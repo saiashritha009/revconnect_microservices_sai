@@ -1,0 +1,158 @@
+<div class="stories-timeline mt-4 mb-4">
+    <!-- Main Scroll Container -->
+    <div class="stories-scroll-wrapper">
+        <ul class="stories-list">
+
+            <!-- My Story Add Button -->
+            <li class="story-item create-story" (click)="openCreateModal()">
+                <div class="story-ring new-story">
+                    <img [src]="currentUser?.profilePicture || 'https://ui-avatars.com/api/?name=Me&background=3b82f6&color=fff'"
+                        alt="My Profile">
+                    <div class="add-icon">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                </div>
+                <span class="story-user">My Story</span>
+            </li>
+
+            <!-- My Active Stories -->
+            <ng-container *ngIf="!isLoading">
+                <li *ngFor="let myStory of myStories" class="story-item" (click)="viewStory(myStory)">
+                    <div class="story-ring active">
+                        <img [src]="currentUser?.profilePicture || myStory.user?.profilePicture || 'https://ui-avatars.com/api/?name=' + (currentUser?.username || 'Me') + '&background=random'"
+                            alt="Me">
+                    </div>
+                    <span class="story-user">My Story</span>
+                </li>
+            </ng-container>
+
+            <!-- All stories in the feed -->
+            <ng-container *ngIf="!isLoading">
+                <li *ngFor="let story of stories" class="story-item" (click)="viewStory(story)">
+                    <div class="story-ring unread">
+                        <img [src]="story.user?.profilePicture || story.profilePicture || 'https://ui-avatars.com/api/?name=' + (story.user?.name || story.user?.username || story.username || 'User') + '&background=random'"
+                            alt="User">
+                    </div>
+                    <span class="story-user">{{ story.user?.name || story.user?.username || story.username || 'User' }}</span>
+                </li>
+            </ng-container>
+
+            <!-- Loading Skeletons -->
+            <ng-container *ngIf="isLoading">
+                <li *ngFor="let i of [1,2,3,4,5]" class="story-item skeleton">
+                    <div class="story-border">
+                        <div class="skeleton-img"></div>
+                    </div>
+                    <span class="skeleton-text"></span>
+                </li>
+            </ng-container>
+
+        </ul>
+    </div>
+</div>
+
+<!-- Create Story Modal -->
+<div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
+    <div class="story-create-modal glass-card" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeCreateModal()"><i class="fa-solid fa-xmark"></i></button>
+        <h3>Share a Moment</h3>
+        <p class="modal-subtitle">Your story will be visible for 24 hours</p>
+
+        <div class="story-upload-area" (click)="triggerFileInput(fileInput)" [class.has-preview]="mediaPreviewUrl">
+            <input #fileInput type="file" class="hidden-input" accept="image/*,video/*"
+                (change)="onFileSelected($event)">
+
+            <div *ngIf="!mediaPreviewUrl" class="upload-placeholder">
+                <div class="upload-icon-pulse">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <p>Click to upload photo or video</p>
+                <span>Recommended: 9:16 aspect ratio</span>
+            </div>
+
+            <div *ngIf="mediaPreviewUrl" class="preview-container">
+                <button class="remove-media" (click)="removeSelectedMedia(); $event.stopPropagation()">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <img *ngIf="!selectedMediaFile?.type?.startsWith('video/')" [src]="mediaPreviewUrl"
+                    class="story-preview-img">
+                <video *ngIf="selectedMediaFile?.type?.startsWith('video/')" [src]="mediaPreviewUrl"
+                    class="story-preview-img" autoplay muted loop></video>
+
+                <!-- Overlay for better contrast -->
+                <div class="preview-overlay"></div>
+            </div>
+        </div>
+
+        <div class="caption-input-wrapper">
+            <div class="input-icon"><i class="fa-solid fa-pen-nib"></i></div>
+            <input type="text" class="form-input glass-input" [(ngModel)]="newStoryCaption"
+                placeholder="Add a catchy caption...">
+        </div>
+
+        <button class="btn btn-primary share-story-btn mt-4" [disabled]="!selectedMediaFile || isCreating"
+            (click)="createStory()">
+            <ng-container *ngIf="!isCreating">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Share Story</span>
+            </ng-container>
+            <ng-container *ngIf="isCreating">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <span>{{ isUploadingMedia ? 'Uploading...' : 'Publishing...' }}</span>
+            </ng-container>
+        </button>
+    </div>
+</div>
+
+<!-- Full Screen Story Viewer -->
+<div class="story-viewer-backdrop" *ngIf="activeStoryToView">
+
+    <!-- Progress Bar -->
+    <div class="viewer-progress">
+        <div class="progress-bar-segment">
+            <div class="progress-fill" [style.width.%]="storyProgress"></div>
+        </div>
+    </div>
+
+    <!-- Header with user details and close button -->
+    <div class="viewer-header">
+        <div class="user-info">
+            <img [src]="activeStoryToView.user?.profilePicture || activeStoryToView.profilePicture || (isMyActiveStory ? currentUser?.profilePicture : null) || 'https://ui-avatars.com/api/?name=' + (activeStoryToView.user?.username || activeStoryToView.username || 'User') + '&background=random'"
+                alt="User">
+            <div class="user-meta">
+                <span class="username">{{ activeStoryToView.user?.name || activeStoryToView.user?.username || activeStoryToView.username || (isMyActiveStory ? 'My Story' : 'User')
+                    }}</span>
+                <span class="time">{{ getRelativeTime(activeStoryToView.createdAt) }}</span>
+            </div>
+        </div>
+        <div class="viewer-actions">
+            <button class="action-btn text-danger delete-btn" *ngIf="isMyActiveStory"
+                (click)="deleteStory(); $event.stopPropagation()">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+            <button class="action-btn close-viewer-btn" (click)="closeStoryView()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Active Story Content -->
+    <div class="viewer-main-content" (click)="closeStoryView()">
+        <div class="media-container" (click)="$event.stopPropagation()">
+            <ng-container [ngSwitch]="activeStoryToView.mediaUrl?.split('.')?.pop()?.toLowerCase()">
+                <video *ngSwitchCase="'mp4'" [src]="activeStoryToView.mediaUrl" autoplay loop playsinline></video>
+                <video *ngSwitchCase="'webm'" [src]="activeStoryToView.mediaUrl" autoplay loop playsinline></video>
+                <img *ngSwitchDefault [src]="activeStoryToView.mediaUrl" alt="Story content">
+            </ng-container>
+
+            <!-- Instagram-style gradient bottom overlay -->
+            <div class="bottom-overlay"></div>
+
+            <!-- Fix Caption Placement: Bottom like Instagram -->
+            <div class="caption-container" *ngIf="activeStoryToView.caption">
+                <p class="viewer-caption">{{ activeStoryToView.caption }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

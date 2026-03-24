@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Annotation profile for RevConnect Microservices" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="config-server" />
+        <module name="connection-service" />
+        <module name="post-service" />
+        <module name="feed-service" />
+        <module name="api-gateway" />
+        <module name="user-service" />
+        <module name="eureka-server" />
+        <module name="notification-service" />
+        <module name="interaction-service" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
+      <module name="config-server" options="-parameters" />
+      <module name="connection-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="feed-service" options="-parameters" />
+      <module name="interaction-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
+      <module name="post-service" options="-parameters" />
+      <module name="revconnect-microservices" options="-parameters" />
+      <module name="user-service" options="-parameters" />
+    </option>
+  </component>
+</project>

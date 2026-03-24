@@ -1,0 +1,177 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="feed-column">
+            <div class="bookmarks-container">
+                <header class="bookmarks-header glass-card">
+                    <div class="header-icon-box">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <div class="header-text">
+                        <h2>Saved Collections</h2>
+                        <p class="count-text" *ngIf="!isLoading">{{bookmarks.length}} posts in your collection</p>
+                    </div>
+                </header>
+
+                <div class="loading-state" *ngIf="isLoading">
+                    <div class="loader"></div>
+                    <p>Curating your collection...</p>
+                </div>
+
+                <div class="empty-state glass-card" *ngIf="!isLoading && bookmarks.length === 0">
+                    <div class="empty-icon-wrapper">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </div>
+                    <h3>Your collection is empty</h3>
+                    <p>Save posts you love to revisit them anytime. They'll be waiting for you here.</p>
+                </div>
+
+                <div class="bookmarks-feed" *ngIf="!isLoading && bookmarks.length > 0">
+                    <div class="post-card glass-card" *ngFor="let bookmark of bookmarks">
+                        <div class="post-card-header">
+                            <div class="author-details">
+                                <div class="avatar-ring">
+                                    <img [src]="bookmark.post.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + (bookmark.post.authorUsername || 'User') + '&background=3b82f6&color=fff'"
+                                        [alt]="bookmark.post.authorUsername || 'User'">
+                                </div>
+                                <div class="name-meta" (click)="viewProfile(bookmark.post.authorId)">
+                                    <h4>{{bookmark.post.authorName}}</h4>
+                                    <span>&#64;{{bookmark.post.authorUsername}} •
+                                        {{getRelativeTime(bookmark.post.createdAt)}}</span>
+                                </div>
+                            </div>
+                            <button class="btn-unsave" (click)="removeBookmark(bookmark.post.id)"
+                                title="Remove from collection">
+                                <i class="fa-solid fa-bookmark"></i>
+                            </button>
+                        </div>
+
+                        <div class="post-card-content">
+                            <div class="partnership-badge" *ngIf="bookmark.post.isPromotional"
+                                style="margin-bottom: 0.8rem;">
+                                <i class="fa-solid fa-handshake"></i> Paid Partnership
+                                <span *ngIf="bookmark.post.partnerName"
+                                    style="color: inherit; font-size: inherit; font-weight: inherit; margin-left: 3px;">
+                                    with <strong>{{bookmark.post.partnerName}}</strong>
+                                </span>
+                            </div>
+
+                            <app-hashtag-text [text]="bookmark.post.content"></app-hashtag-text>
+
+                            <div class="product-tags-list"
+                                *ngIf="bookmark.post.productTags && bookmark.post.productTags.length > 0"
+                                style="margin-top: 0.8rem;">
+                                <span class="product-tag" *ngFor="let tag of bookmark.post.productTags">
+                                    <i class="fa-solid fa-tag"></i> {{tag}}
+                                </span>
+                            </div>
+
+                            <div class="media-container"
+                                *ngIf="bookmark.post.mediaUrls && bookmark.post.mediaUrls.length > 0">
+                                <img [src]="bookmark.post.mediaUrls[0]" alt="Post media">
+                            </div>
+
+                            <!-- Business Call To Action -->
+                            <div class="post-cta" *ngIf="bookmark.post.ctaLabel && bookmark.post.ctaUrl"
+                                style="margin-top: 1.25rem;">
+                                <a [href]="bookmark.post.ctaUrl" target="_blank" class="btn-primary"
+                                    style="display: block; text-align: center; text-decoration: none; padding: 0.8rem; border-radius: 8px; font-weight: 600; width: 100%;">
+                                    {{bookmark.post.ctaLabel}} <i class="fa-solid fa-arrow-up-right-from-square"
+                                        style="margin-left: 0.5rem; opacity: 0.8;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="post-card-footer">
+                            <div class="interaction-summary">
+                                <span><i class="fa-regular fa-heart"></i> {{bookmark.post.likeCount || 0}}</span>
+                                <span><i class="fa-regular fa-comment"></i> {{bookmark.post.commentCount || 0}}</span>
+                                <span><i class="fa-solid fa-share-nodes"></i> {{bookmark.post.shareCount || 0}}</span>
+                            </div>
+                            <div class="footer-actions" style="display: flex; gap: 0.8rem;">
+                                <button class="btn-share-alt" (click)="openShareModal(bookmark.post.id)"
+                                    title="Share with network">
+                                    <i class="fa-solid fa-share-nodes"></i>
+                                </button>
+                                <button class="btn-view-full" (click)="viewFullPost(bookmark.post.id)">
+                                    View Full Post <i class="fa-solid fa-arrow-right-long"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Widgets Column -->
+        <aside class="widgets-column">
+            <!-- Save for Later Tips Widget -->
+            <div class="widget-card glass-card">
+                <div class="widget-header">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--accent-primary)"></i>
+                    <h3>Save for Later Tips</h3>
+                </div>
+                <div class="widget-content">
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>Posts you save are private and visible only to you.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-tags"></i>
+                            <p>You can search your bookmarks using the top search bar.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-share-from-square"></i>
+                            <p>Share interesting posts with friends to keep them updated.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div *ngIf="shareModalOpen" class="share-modal-overlay" (click)="closeShareModal()">
+    <div class="share-modal glass-card" (click)="$event.stopPropagation()">
+        <div class="share-modal-header">
+            <h3><i class="fa-solid fa-paper-plane"></i> Send Post</h3>
+            <button class="share-modal-close" (click)="closeShareModal()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <div class="share-modal-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" [(ngModel)]="shareUserSearch" placeholder="Search people you follow..." autofocus>
+        </div>
+        <div class="share-modal-list">
+            <div *ngIf="followingUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+            </div>
+            <div *ngIf="followingUsers.length > 0 && filteredShareUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-user-xmark"></i> No users found
+            </div>
+            <div class="share-user-row" *ngFor="let user of filteredShareUsers">
+                <img [src]="user.profilePicture || 'https://ui-avatars.com/api/?name=' + user.name + '&background=random'"
+                    class="share-user-avatar" [alt]="user.name">
+                <div class="share-user-info">
+                    <span class="share-user-name">{{user.name}}</span>
+                    <span class="share-user-handle">&#64;{{user.username}}</span>
+                </div>
+                <button class="share-send-btn" [class.sent]="shareSuccessMap[user.userId]"
+                    (click)="sendPostToUser(user.userId)">
+                    <i [class]="shareSuccessMap[user.userId] ? 'fa-solid fa-check' : 'fa-solid fa-paper-plane'"></i>
+                    {{ shareSuccessMap[user.userId] ? 'Sent' : 'Send' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

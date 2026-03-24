@@ -1,0 +1,129 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [12.677 seconds] - 2026-03-10T23:21:17.131Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/explore/explore-page/explore-page.html:98:85:
+[37m      98 │ ... <div class="post-media-container" *ngIf="post.mediaUrls?.[32mlength[37m">
+         ╵                                                              [32m~~~~~~[0m
+
+  Warning occurs in the template of component ExplorePage.
+
+    src/app/features/explore/explore-page/explore-page.ts:17:17:
+[37m      17 │     templateUrl: [32m'./explore-page.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:234:81:
+[37m      234 │ ...                 <img *ngIf="post.originalPost.mediaUrls?.[32mlength[37m"
+          ╵                                                              [32m~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:436:70:
+[37m      436 │ ...="value">{{(analyticsOverview?.[32mtotalViews[37m || 0) | number}}</span>
+          ╵                                   [32m~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:442:70:
+[37m      442 │ ...="value">{{(analyticsOverview?.[32mtotalLikes[37m || 0) | number}}</span>
+          ╵                                   [32m~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:448:70:
+[37m      448 │ ..."value">{{(analyticsOverview?.[32mtotalShares[37m || 0) | number}}</span>
+          ╵                                  [32m~~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:454:70:
+[37m      454 │ ...alue">{{(analyticsOverview?.[32mtotalComments[37m || 0) | number}}</span>
+          ╵                                [32m~~~~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: BottomNav is not used within the template of FeedPage[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.ts:23:105:
+[37m      23 │ ...debar, FormsModule, StoriesFeed, HashtagTextComponent, [32mBottomNav[37m],
+         ╵                                                           [32m~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: BottomNav is not used within the template of NotificationsPage[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/notifications/notifications-page/notifications-page.ts:15:57:
+[37m      15 │   imports: [CommonModule, Navbar, Sidebar, RouterModule, [32mBottomNav[37m],
+         ╵                                                          [32m~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: BottomNav is not used within the template of ProfilePage[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/profile/profile-page/profile-page.ts:22:94:
+[37m      22 │ ..., RouterModule, Navbar, Sidebar, HashtagTextComponent, [32mBottomNav[37m],
+         ╵                                                           [32m~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: NG8107: The left side of this optional chain operation does not include 'null' or 'undefined' in its type, therefore the '?.' operator can be replaced with the '.' operator. Find more at https://v21.angular.dev/extended-diagnostics/NG8107[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/stories/stories-feed/stories-feed.html:142:66:
+[37m      142 │ ...]="activeStoryToView.mediaUrl?.[32msplit[37m('.')?.pop()?.toLowerCase()">
+          ╵                                   [32m~~~~~[0m
+
+  Warning occurs in the template of component StoriesFeed.
+
+    src/app/features/stories/stories-feed/stories-feed.ts:13:15:
+[37m      13 │   templateUrl: [32m'./stories-feed.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Can't have multiple template bindings on one element. Use only one attribute prefixed with *[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.html:248:77:
+[37m      248 │ ... *ngFor="let post of posts" [32m*ngIf="post.ctaLabel && post.ctaUrl"[37m>
+          ╵                                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 │   templateUrl: [32m'./feed-page.html'[37m,
+         ╵                [32m~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

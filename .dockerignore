@@ -1,0 +1,5 @@
+**/.git
+**/*.log
+**/node_modules
+**/*.md
+# Keep target/ so pre-built JARs can be copied into image

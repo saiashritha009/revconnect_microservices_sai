@@ -1,0 +1,111 @@
+<nav class="navbar glass-nav">
+    <div class="nav-container">
+
+        <!-- Branding -->
+        <div class="nav-brand" (click)="navigateTo('/feed')">
+            <div class="logo-circle-small bolt-logo">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="brand-name">RevConnect</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="nav-search">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" [(ngModel)]="searchQuery" placeholder="Search network..." (keyup.enter)="onSearch()">
+            </div>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="nav-actions">
+            <button class="action-btn" title="Home" (click)="navigateTo('/feed')">
+                <i class="fa-solid fa-house"></i>
+            </button>
+
+            <!-- Messages Button -->
+            <button class="action-btn" title="Messages" (click)="navigateTo('/messages')">
+                <i class="fa-solid fa-envelope"></i>
+                <span class="badge" *ngIf="unreadMessageCount > 0">
+                    {{unreadMessageCount > 99 ? '99+' : unreadMessageCount}}
+                </span>
+            </button>
+
+            <!-- Notification Button + Dropdown -->
+            <div class="notification-btn-wrapper">
+                <button class="action-btn" title="Notifications" (click)="toggleNotifications()">
+                    <i class="fa-solid fa-bell" [class.has-notif]="unreadNotificationCount > 0"></i>
+                    <span class="badge" *ngIf="unreadNotificationCount > 0">
+                        {{unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}}
+                    </span>
+                </button>
+
+                <!-- 💎 Refined Notification Dropdown -->
+                <div class="notification-dropdown" *ngIf="notificationDropdownOpen">
+                    <div class="notif-header">
+                        <h3>Notifications</h3>
+                        <button class="mark-all-btn" *ngIf="unreadNotificationCount > 0" (click)="markAllRead()">
+                            Mark all read
+                        </button>
+                    </div>
+
+                    <div class="notif-loading" *ngIf="notificationsLoading">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    </div>
+
+                    <div class="notif-list" *ngIf="!notificationsLoading">
+                        <div class="notif-item" *ngFor="let notif of notifications" [class.unread]="!notif.isRead"
+                            [attr.data-type]="notif.type" (click)="navigateNotification(notif, $event)"
+                            style="cursor: pointer">
+                            <div class="notif-icon-wrap" [ngClass]="notif.type.toLowerCase()">
+                                <i class="fa-solid {{getNotificationIcon(notif.type)}}"></i>
+                            </div>
+                            <div class="notif-body">
+                                <p>{{notif.message}}</p>
+                                <span class="notif-time">{{getRelativeTime(notif.createdAt)}}</span>
+                            </div>
+                            <button class="notif-delete" (click)="deleteNotification(notif, $event)" title="Remove">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <div class="notif-empty" *ngIf="notifications.length === 0">
+                            <i class="fa-solid fa-bell-slash"></i>
+                            <p>No notifications yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <button class="action-btn" title="Settings" (click)="navigateTo('/settings')">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <!-- Theme Toggle -->
+            <div class="theme-toggle-wrap">
+                <input type="checkbox" id="theme-toggle" class="toggle-checkbox" [checked]="isLightMode">
+                <label for="theme-toggle" class="toggle-label" (click)="toggleTheme()">
+                    <i class="fa-solid fa-moon"></i>
+                    <i class="fa-solid fa-sun"></i>
+                    <div class="toggle-ball"></div>
+                </label>
+            </div>
+
+            <!-- Profile Trigger -->
+            <div class="profile-trigger" (click)="navigateTo('/profile')" title="View Profile">
+                <img [src]="currentUser?.profilePicture || 'https://ui-avatars.com/api/?name=' + (currentUser?.username || 'User') + '&background=3b82f6&color=fff'"
+                    [alt]="currentUser?.username || 'User'" class="avatar-sm">
+                <i class="fa-solid fa-chevron-down Chevron"></i>
+            </div>
+
+            <!-- Logout -->
+            <button class="action-btn logout-nav-btn" title="Sign Out" (click)="logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- 📱 Bottom Navigation for Mobile -->
+<app-bottom-nav></app-bottom-nav>

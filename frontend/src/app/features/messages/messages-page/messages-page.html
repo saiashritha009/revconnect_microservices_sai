@@ -1,0 +1,205 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="feed-column messages-column">
+            <div class="messages-layout glass-card" [class.chat-active]="!!selectedConversation">
+
+                <!-- Left: Conversations List -->
+                <div class="conversations-panel">
+                    <div class="conv-header">
+                        <h2>Messages</h2>
+                    </div>
+
+                    <div class="conv-loading" *ngIf="isLoadingConversations">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    </div>
+
+                    <div class="conv-list" *ngIf="!isLoadingConversations">
+                        <div class="conv-item" *ngFor="let partner of conversations"
+                            [class.active]="selectedConversation?.userId === partner.userId"
+                            (click)="selectConversation(partner)">
+                            <img [src]="getAvatarUrl(partner)" alt="{{partner.name}}">
+                            <div class="conv-info">
+                                <strong>{{partner.name}}</strong>
+                                <span>&#64;{{partner.username}}</span>
+                            </div>
+                            <!-- Unread badge -->
+                            <div class="unread-badge" *ngIf="partner.unreadCount && partner.unreadCount > 0">
+                                {{partner.unreadCount > 99 ? '99+' : partner.unreadCount}}
+                            </div>
+                        </div>
+
+                        <div class="conv-empty" *ngIf="conversations.length === 0">
+                            <i class="fa-solid fa-comments"></i>
+                            <p>No conversations yet</p>
+                            <small>Follow someone and start chatting!</small>
+                            <br>
+                            <button class="btn-primary mt-3" style="width: 100%" routerLink="/explore">Find
+                                People</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Chat Window -->
+                <div class="chat-panel">
+
+                    <!-- No conversation selected -->
+                    <div class="chat-empty-state" *ngIf="!selectedConversation">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <h3>Select a conversation</h3>
+                        <p>Choose a conversation from the left to start messaging.</p>
+                    </div>
+
+                    <!-- Conversation active -->
+                    <ng-container *ngIf="selectedConversation">
+                        <!-- Chat Header -->
+                        <div class="chat-header">
+                            <button class="mobile-back-btn"
+                                (click)="selectedConversation = null; $event.stopPropagation()">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <img [src]="getAvatarUrl(selectedConversation)" alt="{{selectedConversation.name}}">
+                            <div class="chat-header-info">
+                                <strong>{{selectedConversation.name}}</strong>
+                                <span>&#64;{{selectedConversation.username}}</span>
+                            </div>
+                        </div>
+
+                        <!-- Messages Area -->
+                        <div class="chat-messages">
+                            <div class="msg-loading" *ngIf="isLoadingMessages">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                            </div>
+
+                            <ng-container *ngIf="!isLoadingMessages">
+                                <div class="message-bubble" *ngFor="let msg of messages" [class.mine]="isMine(msg)"
+                                    [class.theirs]="!isMine(msg)"
+                                    (contextmenu)="openContextMenu($event, msg)">
+                                    <!-- Edit Mode -->
+                                    <ng-container *ngIf="editingMessageId === msg.id">
+                                        <div class="bubble-edit" style="display:flex;gap:0.5rem;align-items:center;">
+                                            <input class="chat-input" style="flex:1;padding:0.4rem 0.7rem;font-size:0.9rem;"
+                                                [(ngModel)]="editingContent" (keyup.enter)="saveEditMessage(msg)" (keyup.escape)="cancelEditMessage()">
+                                            <button class="btn-primary" style="padding:0.35rem 0.75rem;font-size:0.8rem;" (click)="saveEditMessage(msg)">Save</button>
+                                            <button class="btn-secondary" style="padding:0.35rem 0.75rem;font-size:0.8rem;" (click)="cancelEditMessage()">Cancel</button>
+                                        </div>
+                                    </ng-container>
+                                    <!-- View Mode -->
+                                    <ng-container *ngIf="editingMessageId !== msg.id">
+                                        <div class="msg-hover-actions" *ngIf="isMine(msg)">
+                                            <button class="msg-action-btn" (click)="contextMenuMessage = msg; startEditMessage()" title="Edit">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button class="msg-action-btn msg-action-delete" (click)="contextMenuMessage = msg; deleteMessage()" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="bubble-content" *ngIf="!isSharedPost(msg)">
+                                            <img *ngIf="msg.mediaUrl" [src]="msg.mediaUrl" alt="Photo" class="msg-image">
+                                            <p *ngIf="msg.content" [innerHTML]="msg.content | linkify"></p>
+                                            <span class="msg-time">{{getRelativeTime(msg.timestamp)}}</span>
+                                        </div>
+                                        <div class="bubble-content shared-post-card" *ngIf="isSharedPost(msg)">
+                                            <div class="shared-post-header">
+                                                <i class="fa-solid fa-share-nodes"></i>
+                                                <span>Shared post by <strong>@{{getSharedPostAuthor(msg)}}</strong></span>
+                                            </div>
+                                            <img *ngIf="msg.mediaUrl" [src]="msg.mediaUrl" alt="Shared media" class="shared-post-image">
+                                            <p class="shared-post-text" *ngIf="getSharedPostContent(msg)">{{getSharedPostContent(msg)}}</p>
+                                            <span class="msg-time">{{getRelativeTime(msg.timestamp)}}</span>
+                                        </div>
+                                        <i class="fa-solid fa-check-double read-indicator" *ngIf="isMine(msg)"
+                                            [style.color]="msg.isRead ? '#3b82f6' : 'var(--text-muted)'"></i>
+                                    </ng-container>
+                                </div>
+
+                                <div class="no-messages" *ngIf="messages.length === 0">
+                                    <p>No messages yet. Say hello! 👋</p>
+                                </div>
+                            </ng-container>
+
+                            <div #messagesEnd></div>
+                        </div>
+
+                        <!-- Right-click Context Menu -->
+                        <div class="msg-context-menu" *ngIf="contextMenuVisible"
+                            [style.top.px]="contextMenuY" [style.left.px]="contextMenuX"
+                            (click)="$event.stopPropagation()">
+                            <button (click)="startEditMessage()">
+                                <i class="fa-solid fa-pen"></i> Edit
+                            </button>
+                            <button class="delete-opt" (click)="deleteMessage()">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </div>
+
+                        <!-- Emoji Picker -->
+                        <div class="emoji-picker-panel" *ngIf="showEmojiPicker"
+                            style="display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.75rem; background: var(--card-bg, #1e293b); border: 1px solid var(--border-color, #334155); border-radius: 12px; margin: 0 1rem; max-width: 100%;">
+                            <span *ngFor="let emoji of commonEmojis" (click)="insertEmoji(emoji)"
+                                style="cursor: pointer; font-size: 1.4rem; padding: 0.25rem; border-radius: 6px; transition: background 0.15s;"
+                                onmouseover="this.style.background='rgba(59,130,246,0.15)'"
+                                onmouseout="this.style.background='transparent'">{{emoji}}</span>
+                        </div>
+
+                        <!-- Photo preview before sending -->
+                        <div class="photo-preview-bar" *ngIf="photoPreviewUrl">
+                            <img [src]="photoPreviewUrl" alt="Photo preview" class="photo-preview-thumb">
+                            <button class="remove-photo-btn" (click)="removePendingPhoto()" title="Remove photo">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <!-- Message Input -->
+                        <div class="chat-input-area">
+                            <!-- Hidden file input -->
+                            <input type="file" #photoInput style="display:none" accept="image/*" (change)="onPhotoSelected($event)">
+                            <button class="emoji-btn" (click)="toggleEmojiPicker()" type="button"
+                                style="background: none; border: none; cursor: pointer; font-size: 1.3rem; padding: 0.4rem 0.5rem; color: var(--text-secondary); border-radius: 8px; transition: background 0.15s;"
+                                title="Emojis">
+                                <i class="fa-regular fa-face-smile"></i>
+                            </button>
+                            <button type="button" (click)="photoInput.click()" [disabled]="isUploadingPhoto"
+                                style="background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 0.4rem 0.5rem; color: var(--text-secondary); border-radius: 8px; transition: background 0.15s;"
+                                title="Upload photo">
+                                <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isUploadingPhoto"></i>
+                                <i class="fa-regular fa-image" *ngIf="!isUploadingPhoto"></i>
+                            </button>
+                            <input type="text" class="chat-input" [(ngModel)]="newMessage"
+                                placeholder="Type a message..." (keyup.enter)="sendMessage()" [disabled]="isSending"
+                                (focus)="showEmojiPicker = false">
+                            <button class="send-btn btn-primary" (click)="sendMessage()"
+                                [disabled]="(!newMessage.trim() && !pendingMediaUrl) || isSending">
+                                <i class="fa-solid fa-paper-plane" *ngIf="!isSending"></i>
+                                <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isSending"></i>
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Right Widgets Column -->
+        <aside class="widgets-column">
+            <div class="widget-card glass-card">
+                <div class="widget-header">
+                    <i class="fa-solid fa-comments"></i>
+                    <h3>Chat Tips</h3>
+                </div>
+                <div class="widget-content" style="padding: 1rem 0;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">
+                        You can send images and share posts directly in chats to keep the conversation going!
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+# Connection Service Configuration
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/connection_db?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect

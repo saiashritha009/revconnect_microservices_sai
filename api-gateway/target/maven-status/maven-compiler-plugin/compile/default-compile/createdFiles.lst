@@ -1,0 +1,3 @@
+org/revature/revconnect/gateway/ApiGatewayApplication.class
+org/revature/revconnect/gateway/controller/FallbackController.class
+org/revature/revconnect/gateway/filter/AuthenticationFilter.class

@@ -1,0 +1,44 @@
+<aside class="sidebar-container glass-card">
+    <div class="user-quick-profile">
+        <div class="avatar-container">
+            <img [src]="currentUser?.profilePicture || 'https://ui-avatars.com/api/?name=' + (currentUser?.name || 'User') + '&background=3b82f6&color=fff'"
+                alt="User Avatar">
+            <div class="online-indicator"></div>
+        </div>
+        <div class="user-details" *ngIf="currentUser">
+            <h3>{{currentUser.name || 'Loading...'}}</h3>
+            <p>&#64;{{currentUser.username || 'loading'}}</p>
+        </div>
+        <div class="user-details" *ngIf="!currentUser">
+            <h3 style="opacity: 0.5;"><i class="fa-solid fa-circle-notch fa-spin" style="font-size: 0.7rem; margin-right: 0.4rem;"></i> Loading</h3>
+            <p style="opacity: 0.3;">...</p>
+        </div>
+    </div>
+
+    <!-- Main Navigation Menu -->
+    <div class="sidebar-menu">
+        @for (item of filteredMenuItems; track item.label) {
+        <a [routerLink]="item.link" class="menu-item" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{exact: item.link === '/feed'}">
+            <div class="icon-box">
+                <i class="fa-solid {{item.icon}}"></i>
+            </div>
+            <span>{{item.label}}</span>
+
+            <!-- Individual Badge Logic -->
+            <span *ngIf="item.label === 'Notifications' && unreadNotifications > 0" class="notification-badge">
+                {{ unreadNotifications > 99 ? '99+' : unreadNotifications }}
+            </span>
+            <span *ngIf="item.label === 'Messages' && unreadMessages > 0" class="notification-badge">
+                {{ unreadMessages > 99 ? '99+' : unreadMessages }}
+            </span>
+            <span *ngIf="item.label === 'Profile' && pendingRequests > 0" class="notification-badge">
+                {{ pendingRequests > 99 ? '99+' : pendingRequests }}
+            </span>
+
+            <div class="active-indicator"></div>
+        </a>
+        }
+    </div>
+
+</aside>

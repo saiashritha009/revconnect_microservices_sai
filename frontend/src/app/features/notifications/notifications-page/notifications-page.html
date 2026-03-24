@@ -1,0 +1,99 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <main class="feed-column">
+            <div class="notifications-container">
+                <!-- Premium Header Section -->
+                <div class="notifications-header">
+                    <h2>Notifications</h2>
+                    <button class="mark-all-btn" (click)="markAllAsRead()" *ngIf="notifications.length > 0">
+                        <i class="fa-solid fa-check-double"></i> Mark all as read
+                    </button>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="notifications-list">
+
+                    <ng-container *ngIf="isLoading">
+                        <div class="notification-card skeleton" *ngFor="let i of [1,2,3,4]">
+                            <div class="skeleton-avatar"></div>
+                            <div class="skeleton-content">
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line"></div>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!isLoading && notifications.length === 0">
+                        <div class="empty-state">
+                            <i class="fa-regular fa-bell-slash"></i>
+                            <h3>All Caught Up!</h3>
+                            <p>You don't have any notifications right now.</p>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!isLoading && notifications.length > 0">
+                        <div class="notification-card" *ngFor="let notification of notifications"
+                            [class.unread]="!notification.isRead" (click)="navigateNotification(notification)">
+
+                            <!-- Avatar with Integrated Type Badge -->
+                            <div class="actor-avatar-wrap">
+                                <img class="actor-avatar"
+                                    [src]="notification.actorProfilePicture || 'https://ui-avatars.com/api/?name=' + (notification.actorUsername || 'User') + '&background=3b82f6&color=fff'"
+                                    [alt]="notification.actorUsername || 'User'">
+                                <div class="type-icon-badge" [ngClass]="notification.type.toLowerCase()">
+                                    <i [class]="getIconForType(notification.type)"></i>
+                                </div>
+                            </div>
+
+                            <div class="notification-content">
+                                <p><strong>{{ notification.actorName || notification.actorUsername || 'Someone' }}</strong> {{ notification.message }}</p>
+                                <span class="timestamp">{{ getRelativeTime(notification.createdAt) }}</span>
+                            </div>
+
+                            <div class="notification-actions">
+                                <button class="delete-btn" (click)="deleteNotification(notification, $event)"
+                                    title="Delete Notification">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Widgets Column -->
+        <aside class="widgets-column">
+            <!-- Stay Updated Tips Widget -->
+            <div class="widget-card glass-card">
+                <div class="widget-header">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--accent-primary)"></i>
+                    <h3>Stay Updated Tips</h3>
+                </div>
+                <div class="widget-content">
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fa-solid fa-bolt"></i>
+                            <p>Enable browser notifications to never miss an update.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                            <p>You can mark all notifications as read to clear your inbox.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user-gear"></i>
+                            <p>Customize your notification settings in the profile section.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

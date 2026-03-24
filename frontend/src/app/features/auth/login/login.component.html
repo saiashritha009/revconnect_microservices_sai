@@ -1,0 +1,85 @@
+<div class="auth-container">
+    <!-- 3D Network Graph SVG Background -->
+    <svg class="auth-bg-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+        <!-- Connection Lines (dashed, animated) -->
+        <line x1="120" y1="100" x2="300" y2="200" stroke="rgba(139,92,246,0.15)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="300" y1="200" x2="500" y2="120" stroke="rgba(59,130,246,0.12)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="300" y1="200" x2="250" y2="400" stroke="rgba(6,182,212,0.12)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="500" y1="120" x2="680" y2="250" stroke="rgba(139,92,246,0.1)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="680" y1="250" x2="600" y2="450" stroke="rgba(59,130,246,0.1)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="250" y1="400" x2="600" y2="450" stroke="rgba(6,182,212,0.08)" stroke-width="1" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="120" y1="100" x2="80" y2="350" stroke="rgba(139,92,246,0.08)" stroke-width="1" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="500" y1="120" x2="600" y2="450" stroke="rgba(59,130,246,0.06)" stroke-width="1" stroke-dasharray="6 4" class="conn-line"/>
+        <!-- Network Nodes -->
+        <circle cx="120" cy="100" r="18" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.25)" stroke-width="1.5" class="node n1"/>
+        <circle cx="120" cy="100" r="7" fill="rgba(139,92,246,0.3)" class="node-core"/>
+        <circle cx="300" cy="200" r="24" fill="rgba(59,130,246,0.10)" stroke="rgba(59,130,246,0.2)" stroke-width="1.5" class="node n2"/>
+        <circle cx="300" cy="200" r="9" fill="rgba(59,130,246,0.3)" class="node-core"/>
+        <circle cx="500" cy="120" r="20" fill="rgba(6,182,212,0.10)" stroke="rgba(6,182,212,0.2)" stroke-width="1.5" class="node n3"/>
+        <circle cx="500" cy="120" r="8" fill="rgba(6,182,212,0.3)" class="node-core"/>
+        <circle cx="680" cy="250" r="16" fill="rgba(139,92,246,0.10)" stroke="rgba(139,92,246,0.2)" stroke-width="1.5" class="node n4"/>
+        <circle cx="680" cy="250" r="6" fill="rgba(139,92,246,0.25)" class="node-core"/>
+        <circle cx="250" cy="400" r="22" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.15)" stroke-width="1.5" class="node n5"/>
+        <circle cx="250" cy="400" r="8" fill="rgba(59,130,246,0.25)" class="node-core"/>
+        <circle cx="600" cy="450" r="15" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.15)" stroke-width="1.5" class="node n6"/>
+        <circle cx="600" cy="450" r="6" fill="rgba(6,182,212,0.2)" class="node-core"/>
+        <circle cx="80" cy="350" r="12" fill="rgba(139,92,246,0.06)" stroke="rgba(139,92,246,0.12)" stroke-width="1" class="node n7"/>
+        <!-- Pulse rings on main nodes -->
+        <circle cx="300" cy="200" r="24" fill="none" stroke="rgba(59,130,246,0.15)" stroke-width="1" class="pulse"/>
+        <circle cx="500" cy="120" r="20" fill="none" stroke="rgba(6,182,212,0.12)" stroke-width="1" class="pulse p2"/>
+    </svg>
+    <div class="auth-card glass-card">
+        <div class="auth-header">
+            <div class="logo-circle">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1>Welcome Back</h1>
+            <p>Sign in to your RevConnect account</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-alert">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="input-group">
+                <label for="username">Username or Email</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user icon"></i>
+                    <input type="text" id="username" name="usernameOrEmail" [(ngModel)]="credentials.usernameOrEmail"
+                        required placeholder="Enter your username">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock icon"></i>
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                        [(ngModel)]="credentials.password" required placeholder="••••••••" style="padding-right: 40px;">
+                    <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"
+                        (click)="showPassword = !showPassword"
+                        style="position: absolute; right: 15px; cursor: pointer; color: var(--text-secondary); pointer-events: auto; padding: 5px;"></i>
+                </div>
+            </div>
+
+            <div class="auth-actions">
+                <label class="remember-me">
+                    <input type="checkbox" name="remember" [(ngModel)]="rememberMe">
+                    <span>Remember me</span>
+                </label>
+                <a href="/forgot-password" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary login-btn" [disabled]="!loginForm.valid || isLoading">
+                <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+                <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="/register">Create one now</a></p>
+        </div>
+    </div>
+</div>

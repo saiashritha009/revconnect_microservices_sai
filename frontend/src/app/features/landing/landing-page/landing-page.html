@@ -1,0 +1,217 @@
+<div class="landing-wrapper">
+    <!-- Premium Glass Navbar -->
+    <nav class="landing-nav glass-nav">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="logo-morph">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="brand-text">RevConnect</span>
+            </div>
+            <button class="mobile-menu-btn" (click)="mobileMenuOpen = !mobileMenuOpen">
+                <i [class]="mobileMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+            </button>
+            <div class="nav-links" [class.open]="mobileMenuOpen">
+                <a href="#features" (click)="mobileMenuOpen = false">Features</a>
+                <a href="#about" (click)="mobileMenuOpen = false">Network</a>
+                <button class="btn-glass" [routerLink]="['/login']">Sign In</button>
+                <button class="btn-primary-glow" [routerLink]="['/register']">Join Now</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge"><i class="fa-solid fa-sparkles"></i> The #1 Professional Network for Creators</div>
+            <h1 class="hero-title">
+                Build Your <span class="gradient-text">Professional Network</span> That Actually Works.
+            </h1>
+            <p class="hero-subtitle">
+                Connect with like-minded professionals, showcase your work, and unlock opportunities through meaningful relationships.
+            </p>
+            <div class="hero-actions">
+                <button class="btn-hero-primary" (click)="getStarted()">
+                    Get Started Free <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="btn-hero-secondary" [routerLink]="['/register']">
+                    See How It Works <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+            
+            <!-- Hero Interface Teaser -->
+            <div class="hero-preview glass-card">
+                <div class="preview-header">
+                    <div class="dots"><span></span><span></span><span></span></div>
+                    <div class="search-bar">Search professionals...</div>
+                </div>
+                <div class="preview-body">
+                    <div class="mock-sidebar">
+                        <div class="sidebar-user">
+                            <div class="mock-avatar-sm"></div>
+                            <div class="sidebar-text">My Network</div>
+                        </div>
+                        <div class="sidebar-user">
+                            <i class="fa-solid fa-compass"></i>
+                            <div class="sidebar-text">Explore</div>
+                        </div>
+                        <div class="sidebar-user">
+                            <i class="fa-solid fa-bookmark"></i>
+                            <div class="sidebar-text">Saved</div>
+                        </div>
+                    </div>
+                    <div class="mock-feed">
+                        <!-- Mock Post 1 -->
+                        <div class="mock-post">
+                            <div class="post-top">
+                                <div class="mock-avatar-md"></div>
+                                <div class="post-meta-wrap">
+                                    <div class="post-user-name">Sarah Jenkins</div>
+                                    <div class="post-user-handle">@sarah_creative</div>
+                                </div>
+                            </div>
+                            <div class="post-desc">Just launched our new brand identity for @NextGen. Thoughts? 🚀</div>
+                            <div class="post-img-placeholder"></div>
+                        </div>
+                        <!-- Mock Post 2 -->
+                        <div class="mock-post">
+                            <div class="post-top">
+                                <div class="mock-avatar-md cyan"></div>
+                                <div class="post-meta-wrap">
+                                    <div class="post-user-name">Alex Rivera</div>
+                                    <div class="post-user-handle">@arivera_pro</div>
+                                </div>
+                            </div>
+                            <div class="post-desc">Looking for a Senior UX Designer to join our team in London. DM me!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-num">2.5K+</span>
+            <span class="stat-label">Registered Users</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-num">850+</span>
+            <span class="stat-label">Daily Connections</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-num">4.8★</span>
+            <span class="stat-label">User Rating</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <span class="badge">Innovation</span>
+            <h2>Tailored for your <span class="gradient-text">Ambition</span></h2>
+            <p>Everything you need to showcase your talent or scale your business.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card glass-card">
+                <div class="feature-icon i-purple">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <h3>Dynamic Profiles</h3>
+                <p>Personalized showcases for individuals, creators, and businesses with rich media support.</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon i-cyan">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3>Creator Analytics</h3>
+                <p>Deep insights into your reach and engagement. Understand exactly how your audience interacts.</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon i-pink">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <h3>Business Reach</h3>
+                <p>Promote your services with built-in Call To Action tools and targeted professional exposure.</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="feature-icon i-yellow">
+                    <i class="fa-solid fa-message"></i>
+                </div>
+                <h3>Real-time Collab</h3>
+                <p>Seamless messaging and networking tools to turn connections into active partnerships.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <span class="badge">Trusted</span>
+            <h2>Loved by <span class="gradient-text">Professionals</span></h2>
+            <p>See what our community has to say about RevConnect.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card glass-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">"RevConnect transformed how I find freelance clients. The networking tools are incredibly intuitive."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar t-purple">JM</div>
+                    <div><strong>James Mitchell</strong><span>UX Designer</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Our brand reach increased 300% after switching to RevConnect's business tools. Game changer!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar t-cyan">SP</div>
+                    <div><strong>Sarah Parker</strong><span>Marketing Lead</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card glass-card">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Finally, a platform that understands creators. The analytics alone are worth it."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar t-pink">AR</div>
+                    <div><strong>Alex Rivera</strong><span>Content Creator</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="final-cta">
+        <div class="cta-card glass-card">
+            <h2>Ready to redefine your <span class="gradient-text">Network?</span></h2>
+            <p>Join thousands of professionals already thriving on RevConnect.</p>
+            <button class="btn-primary-glow xl" [routerLink]="['/register']">Create Your Profile Today</button>
+        </div>
+    </section>
+
+    <footer class="landing-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 RevConnect. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Help</a>
+            </div>
+        </div>
+    </footer>
+</div>

@@ -1,0 +1,376 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="feed-column">
+            <div class="settings-wrapper">
+
+                <header class="settings-header glass-card">
+                    <h2>Settings</h2>
+                    <p>Manage your account preferences, privacy, and security.</p>
+                </header>
+
+                <div class="settings-grid">
+                    <!-- Internal Navigation Tabs -->
+                    <aside class="settings-nav">
+                        <div class="settings-tabs glass-card">
+                            <button class="tab-btn" [class.active]="activeTab === 'account'"
+                                (click)="setTab('account')">
+                                <i class="fa-solid fa-user icon-account"></i> Account
+                            </button>
+                            <button class="tab-btn" [class.active]="activeTab === 'security'"
+                                (click)="setTab('security')">
+                                <i class="fa-solid fa-shield icon-security"></i> Security
+                            </button>
+                            <button class="tab-btn" [class.active]="activeTab === 'links'" (click)="setTab('links')">
+                                <i class="fa-solid fa-link icon-links"></i> External Links
+                            </button>
+                            <button class="tab-btn" [class.active]="activeTab === 'privacy'"
+                                (click)="setTab('privacy')">
+                                <i class="fa-solid fa-lock icon-privacy"></i> Profile Privacy
+                            </button>
+                            <button class="tab-btn" [class.active]="activeTab === 'notifications'"
+                                (click)="setTab('notifications')">
+                                <i class="fa-solid fa-bell icon-notifications"></i> Notifications
+                            </button>
+                            <button class="tab-btn" [class.active]="activeTab === 'policy'" (click)="setTab('policy')">
+                                <i class="fa-solid fa-file-contract icon-policy"></i> Privacy Policy
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- Settings Detail Area -->
+                    <section class="settings-detail">
+                        <div class="settings-content glass-card relative">
+                            <!-- Feedback Messages -->
+                            <div class="alert alert-success" *ngIf="successMessage">
+                                <i class="fa-solid fa-check-circle"></i> {{ successMessage }}
+                            </div>
+                            <div class="alert alert-error" *ngIf="errorMessage">
+                                <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+                            </div>
+
+                            <!-- ACCOUNT TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'account'">
+                                <h3><i class="fa-solid fa-user-gear"></i> Account Management</h3>
+                                <p class="text-muted">You can pause or permanently delete your account here.</p>
+
+                                <div class="danger-zone">
+                                    <h4><i class="fa-solid fa-user-slash"></i> Deactivate Account</h4>
+                                    <p>Taking a break? Deactivate your account temporarily. Your data will be saved, but
+                                        your profile will be hidden.</p>
+                                    <button class="btn btn-warning" (click)="deactivateAccount()"
+                                        [disabled]="isLoading">
+                                        <i class="fa-solid fa-pause"></i> Deactivate Account
+                                    </button>
+                                </div>
+
+                                <div class="danger-zone mt-4">
+                                    <h4><i class="fa-solid fa-user-xmark"></i> Delete Account</h4>
+                                    <p>Permanently remove your account and all associated data. This action cannot be
+                                        reversed.</p>
+
+                                    <div class="form-group mb-3 max-w-sm" style="position: relative;">
+                                        <label>Enter password to confirm deletion</label>
+                                        <div style="position: relative; display: flex; align-items: center;">
+                                            <input [type]="showDeletePassword ? 'text' : 'password'" class="form-input"
+                                                [(ngModel)]="deletePassword" placeholder="Current password"
+                                                style="padding-right: 40px; width: 100%;">
+                                            <i class="fa-solid" [class.fa-eye]="!showDeletePassword"
+                                                [class.fa-eye-slash]="showDeletePassword"
+                                                (click)="showDeletePassword = !showDeletePassword"
+                                                style="position: absolute; right: 15px; cursor: pointer; color: var(--text-secondary); pointer-events: auto; padding: 5px;"></i>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-danger" (click)="deleteAccount()" [disabled]="isLoading">
+                                        <i class="fa-solid fa-trash"></i> Permanently Delete
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- SECURITY TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'security'">
+                                <h3><i class="fa-solid fa-key"></i> Change Password</h3>
+                                <p class="text-muted">Ensure your account uses a long, random password to stay secure.
+                                </p>
+
+                                <div class="form-stack max-w-md">
+                                    <div class="form-group" style="position: relative;">
+                                        <label>Current Password</label>
+                                        <div style="position: relative; display: flex; align-items: center;">
+                                            <input [type]="showCurrentPassword ? 'text' : 'password'" class="form-input"
+                                                [(ngModel)]="currentPassword" placeholder="Enter current password"
+                                                style="padding-right: 40px; width: 100%;">
+                                            <i class="fa-solid" [class.fa-eye]="!showCurrentPassword"
+                                                [class.fa-eye-slash]="showCurrentPassword"
+                                                (click)="showCurrentPassword = !showCurrentPassword"
+                                                style="position: absolute; right: 15px; cursor: pointer; color: var(--text-secondary); pointer-events: auto; padding: 5px;"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="position: relative;">
+                                        <label>New Password</label>
+                                        <div style="position: relative; display: flex; align-items: center;">
+                                            <input [type]="showNewPassword ? 'text' : 'password'" class="form-input"
+                                                [(ngModel)]="newPassword"
+                                                placeholder="Enter new password (min. 6 chars)"
+                                                style="padding-right: 40px; width: 100%;">
+                                            <i class="fa-solid" [class.fa-eye]="!showNewPassword"
+                                                [class.fa-eye-slash]="showNewPassword"
+                                                (click)="showNewPassword = !showNewPassword"
+                                                style="position: absolute; right: 15px; cursor: pointer; color: var(--text-secondary); pointer-events: auto; padding: 5px;"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="position: relative;">
+                                        <label>Confirm New Password</label>
+                                        <div style="position: relative; display: flex; align-items: center;">
+                                            <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-input"
+                                                [(ngModel)]="confirmPassword" placeholder="Confirm new password"
+                                                style="padding-right: 40px; width: 100%;">
+                                            <i class="fa-solid" [class.fa-eye]="!showConfirmPassword"
+                                                [class.fa-eye-slash]="showConfirmPassword"
+                                                (click)="showConfirmPassword = !showConfirmPassword"
+                                                style="position: absolute; right: 15px; cursor: pointer; color: var(--text-secondary); pointer-events: auto; padding: 5px;"></i>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary mt-2" (click)="changePassword()"
+                                        [disabled]="isLoading">
+                                        <i class="fa-solid" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"
+                                            [class.fa-key]="!isLoading"></i>
+                                        {{ isLoading ? 'Updating...' : 'Update Password' }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- EXTERNAL LINKS TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'links'">
+                                <div class="tab-header">
+                                    <h3>External Links</h3>
+                                    <p class="text-muted">Showcase your portfolio, social media, or professional brand.
+                                    </p>
+                                </div>
+
+                                <div class="add-link-card">
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-link"></i>
+                                        <input type="text" [(ngModel)]="newLink"
+                                            placeholder="Paste your link here (https://...)" (keyup.enter)="addLink()">
+                                    </div>
+                                    <button class="btn btn-primary" (click)="addLink()" [disabled]="isLoadingLinks">
+                                        <i class="fa-solid fa-plus" *ngIf="!isLoadingLinks"></i>
+                                        <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isLoadingLinks"></i>
+                                        Add Link
+                                    </button>
+                                </div>
+
+                                <div class="links-container">
+                                    <div class="links-loading" *ngIf="isLoadingLinks && links.length === 0">
+                                        <i class="fa-solid fa-circle-notch fa-spin"></i> Loading links...
+                                    </div>
+
+                                    <div class="link-grid" *ngIf="links.length > 0">
+                                        <div class="link-card" *ngFor="let link of links">
+                                            <div class="link-icon">
+                                                <i class="fa-solid fa-link"></i>
+                                            </div>
+                                            <div class="link-info">
+                                                <a [href]="getLinkUrl(link)" target="_blank"
+                                                    class="link-title">{{getLinkDisplay(link)}}</a>
+                                                <span class="link-url">{{getLinkUrl(link)}}</span>
+                                            </div>
+                                            <button class="delete-btn" (click)="removeLink(link)" title="Remove link">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="empty-state" *ngIf="!isLoadingLinks && links.length === 0">
+                                        <div class="icon-circle">
+                                            <i class="fa-solid fa-link-slash"></i>
+                                        </div>
+                                        <p>Expand your presence by adding links.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PRIVACY TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'privacy'">
+                                <div class="tab-header">
+                                    <h3>Profile Privacy</h3>
+                                    <p class="text-muted">Control who can discover your content and follow your journey.
+                                    </p>
+                                </div>
+
+                                <div class="privacy-cards">
+                                    <div class="privacy-card" [class.active]="privacySetting === 'PUBLIC'"
+                                        (click)="privacySetting = 'PUBLIC'">
+                                        <div class="card-radio">
+                                            <div class="inner-circle"></div>
+                                        </div>
+                                        <div class="card-icon public">
+                                            <i class="fa-solid fa-globe"></i>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4>Public Account</h4>
+                                            <p>Maximum visibility. Anyone can see your posts and follow you instantly.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="privacy-card" [class.active]="privacySetting === 'PRIVATE'"
+                                        (click)="privacySetting = 'PRIVATE'">
+                                        <div class="card-radio">
+                                            <div class="inner-circle"></div>
+                                        </div>
+                                        <div class="card-icon private">
+                                            <i class="fa-solid fa-user-lock"></i>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4>Private Account</h4>
+                                            <p>Only people you approve can see your posts and current interactions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="save-actions">
+                                    <button class="btn btn-primary" (click)="savePrivacy()" [disabled]="isLoading">
+                                        <i class="fa-solid" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"
+                                            [class.fa-shield-halved]="!isLoading"></i>
+                                        {{ isLoading ? 'Protecting...' : 'Save Privacy Preference' }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- NOTIFICATIONS TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'notifications'">
+                                <h3>Notification Preferences</h3>
+                                <p class="text-muted">Choose which notifications you'd like to receive on RevConnect.
+                                </p>
+
+                                <div class="form-stack max-w-md mt-4"
+                                    style="display: flex; flex-direction: column; gap: 1rem;">
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-heart" style="color: #ef4444; width: 24px;"></i>
+                                            Post Likes</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['notifyLike']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-comment" style="color: #3b82f6; width: 24px;"></i>
+                                            Post Comments</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['notifyComment']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-user-plus" style="color: #8b5cf6; width: 24px;"></i>
+                                            New Followers</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['notifyNewFollower']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-share" style="color: #10b981; width: 24px;"></i>
+                                            Post Shares</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['notifyShare']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-user-clock"
+                                                style="color: #f59e0b; width: 24px;"></i> Connection Requests</span>
+                                        <input type="checkbox"
+                                            [(ngModel)]="notificationPrefs['notifyConnectionRequest']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-envelope" style="color: #06b6d4; width: 24px;"></i>
+                                            Email Notifications</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['emailNotifications']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <label
+                                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass-highlight); border-radius: 8px; border: 1px solid var(--border-color-light); cursor: pointer;">
+                                        <span><i class="fa-solid fa-bell" style="color: #6366f1; width: 24px;"></i>
+                                            Push Notifications</span>
+                                        <input type="checkbox" [(ngModel)]="notificationPrefs['pushNotifications']"
+                                            style="transform: scale(1.2); accent-color: #3b82f6;">
+                                    </label>
+
+                                    <button class="btn btn-primary mt-3" (click)="saveNotifications()"
+                                        [disabled]="isLoading">
+                                        <i class="fa-solid" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"
+                                            [class.fa-save]="!isLoading"></i>
+                                        {{ isLoading ? 'Saving...' : 'Save Preferences' }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- PRIVACY POLICY TAB -->
+                            <div class="tab-pane" *ngIf="activeTab === 'policy'">
+                                <div class="tab-header">
+                                    <h3>Privacy Policy</h3>
+                                    <p class="text-muted">Your data security and privacy are our top priorities.</p>
+                                </div>
+
+                                <div class="policy-content glass-card">
+                                    <div class="policy-section">
+                                        <h4><i class="fa-solid fa-shield-halved text-primary"></i> Data Protection</h4>
+                                        <p>We use industry-standard encryption to protect your professional data and
+                                            personal interactions.</p>
+                                    </div>
+                                    <div class="policy-section mt-4">
+                                        <h4><i class="fa-solid fa-user-shield text-success"></i> Information We Collect
+                                        </h4>
+                                        <p>RevConnect collects professional profile information, interaction logs, and
+                                            media shared within stories to provide a seamless networking experience.</p>
+                                    </div>
+                                    <div class="policy-section mt-4">
+                                        <h4><i class="fa-solid fa-handshake text-warning"></i> Third-Party Sharing</h4>
+                                        <p>We do not sell your personal data. Professional information is only shared
+                                            with partners you explicitly interact with (e.g., through Business CTA
+                                            buttons).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Widgets Column -->
+        <aside class="widgets-column">
+            <div class="widget-card glass-card">
+                <div class="settings-tip">
+                    <i class="fa-solid fa-lightbulb"
+                        style="color: #f59e0b; margin-bottom: 1rem; font-size: 1.5rem;"></i>
+                    <h4>Security Tip</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                        Strong passwords use a mix of capital letters, numbers, and symbols. Update your password
+                        regularly to keep your account safe.
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

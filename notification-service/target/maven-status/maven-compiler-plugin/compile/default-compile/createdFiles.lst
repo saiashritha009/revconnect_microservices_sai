@@ -1,0 +1,17 @@
+org/revature/revconnect/notificationservice/controller/MessageController.class
+org/revature/revconnect/notificationservice/dto/response/ApiResponse$ApiResponseBuilder.class
+org/revature/revconnect/notificationservice/model/Notification.class
+org/revature/revconnect/notificationservice/model/Message.class
+org/revature/revconnect/notificationservice/client/UserServiceClient$UserResponse.class
+org/revature/revconnect/notificationservice/repository/NotificationRepository.class
+org/revature/revconnect/notificationservice/config/WebSocketConfig.class
+org/revature/revconnect/notificationservice/NotificationServiceApplication.class
+org/revature/revconnect/notificationservice/enums/NotificationType.class
+org/revature/revconnect/notificationservice/controller/NotificationController$1.class
+org/revature/revconnect/notificationservice/client/UserServiceClient$ApiResponse.class
+org/revature/revconnect/notificationservice/model/Message$MessageBuilder.class
+org/revature/revconnect/notificationservice/dto/response/ApiResponse.class
+org/revature/revconnect/notificationservice/model/Notification$NotificationBuilder.class
+org/revature/revconnect/notificationservice/repository/MessageRepository.class
+org/revature/revconnect/notificationservice/client/UserServiceClient.class
+org/revature/revconnect/notificationservice/controller/NotificationController.class

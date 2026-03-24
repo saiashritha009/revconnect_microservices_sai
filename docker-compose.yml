@@ -1,0 +1,248 @@
+version: '3.8'
+
+services:
+  # ==================== DATABASES ====================
+  mysql-user:
+    image: mysql:8.0
+    container_name: mysql-user
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - user-db-data:/var/lib/mysql
+    networks:
+      - revconnect-network
+
+  mysql-post:
+    image: mysql:8.0
+    container_name: mysql-post
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: post_db
+    ports:
+      - "3308:3306"
+    volumes:
+      - post-db-data:/var/lib/mysql
+    networks:
+      - revconnect-network
+
+  mysql-interaction:
+    image: mysql:8.0
+    container_name: mysql-interaction
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: interaction_db
+    ports:
+      - "3309:3306"
+    volumes:
+      - interaction-db-data:/var/lib/mysql
+    networks:
+      - revconnect-network
+
+  mysql-connection:
+    image: mysql:8.0
+    container_name: mysql-connection
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: connection_db
+    ports:
+      - "3310:3306"
+    volumes:
+      - connection-db-data:/var/lib/mysql
+    networks:
+      - revconnect-network
+
+  mysql-notification:
+    image: mysql:8.0
+    container_name: mysql-notification
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: notification_db
+    ports:
+      - "3311:3306"
+    volumes:
+      - notification-db-data:/var/lib/mysql
+    networks:
+      - revconnect-network
+
+  # ==================== INFRASTRUCTURE ====================
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - revconnect-network
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8761/actuator/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 30s
+
+  config-server:
+    build:
+      context: .
+      dockerfile: config-server/Dockerfile
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: native
+    networks:
+      - revconnect-network
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - config-server
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    networks:
+      - revconnect-network
+
+  # ==================== DOMAIN SERVICES ====================
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+      - config-server
+      - mysql-user
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-user:3306/user_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+  post-service:
+    build:
+      context: .
+      dockerfile: post-service/Dockerfile
+    container_name: post-service
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - eureka-server
+      - config-server
+      - mysql-post
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-post:3306/post_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+  feed-service:
+    build:
+      context: .
+      dockerfile: feed-service/Dockerfile
+    container_name: feed-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+      - config-server
+      - post-service
+      - connection-service
+    environment:
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+  interaction-service:
+    build:
+      context: .
+      dockerfile: interaction-service/Dockerfile
+    container_name: interaction-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - eureka-server
+      - config-server
+      - mysql-interaction
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-interaction:3306/interaction_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+  connection-service:
+    build:
+      context: .
+      dockerfile: connection-service/Dockerfile
+    container_name: connection-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+      - config-server
+      - mysql-connection
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-connection:3306/connection_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    container_name: notification-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - eureka-server
+      - config-server
+      - mysql-notification
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-notification:3306/notification_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+    networks:
+      - revconnect-network
+
+# ==================== VOLUMES & NETWORKS ====================
+volumes:
+  user-db-data:
+  post-db-data:
+  interaction-db-data:
+  connection-db-data:
+  notification-db-data:
+
+networks:
+  revconnect-network:
+    driver: bridge

@@ -1,0 +1,186 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <!-- Middle Explore View -->
+        <main class="feed-column">
+
+            <div class="search-header glass-card">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="explore-search-input"
+                        placeholder="Search for users, posts, or keywords..." [(ngModel)]="searchQuery"
+                        (ngModelChange)="onSearchChange()">
+                    <button *ngIf="searchQuery" (click)="searchQuery=''; clearResults()" class="clear-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="search-tabs" *ngIf="searchQuery">
+                    <div class="tab" [class.active]="activeTab === 'all'" (click)="setTab('all')">All</div>
+                    <div class="tab" [class.active]="activeTab === 'users'" (click)="setTab('users')">Users</div>
+                    <div class="tab" [class.active]="activeTab === 'posts'" (click)="setTab('posts')">Posts</div>
+                </div>
+            </div>
+
+            <!-- Initial State: Search Help Section (when no search query) -->
+            <div class="pre-search-content" *ngIf="!searchQuery">
+                <div class="search-guide glass-card">
+                    <h3><i class="fa-solid fa-wand-magic-sparkles"
+                            style="color: var(--accent-primary); margin-right: 0.5rem;"></i> Discover Something New</h3>
+                    <p>Start typing to find people, trending topics, or professional insights across the network.</p>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div *ngIf="isLoading" class="loading-state glass-card">
+                <i class="fa-solid fa-compass fa-spin fa-2x"></i>
+                <p>Searching network...</p>
+            </div>
+
+            <!-- Search Results -->
+            <div class="search-results" *ngIf="searchQuery && !isLoading">
+
+                <!-- Users Results -->
+                <div class="results-section"
+                    *ngIf="usersResults.length > 0 && (activeTab === 'all' || activeTab === 'users')">
+                    <h3 class="section-title">People</h3>
+                    <div class="users-grid">
+                        <div class="user-social-card glass-card" *ngFor="let user of usersResults"
+                            (click)="viewProfile(user.id)">
+                            <div class="profile-accent"></div>
+                            <div class="user-card-header">
+                                <div class="avatar-wrapper">
+                                    <img [src]="user.profilePicture || 'https://ui-avatars.com/api/?name=' + user.name + '&background=random'"
+                                        alt="Avatar">
+                                </div>
+                            </div>
+                            <div class="user-card-body">
+                                <h4>{{user.name}}</h4>
+                                <span class="handle">&#64;{{user.username}}</span>
+                                <p class="bio" *ngIf="user.bio">{{user.bio.length > 50 ? (user.bio | slice:0:50) + '...'
+                                    : user.bio}}</p>
+                            </div>
+                            <div class="user-card-footer" *ngIf="user.id !== currentUserId">
+                                <!-- Not Following -->
+                                <button class="btn-follow-action" *ngIf="followStateMap[user.id] === 'none'"
+                                    (click)="toggleFollowFromExplore(user.id, $event)">
+                                    <i class="fa-solid fa-user-plus"></i> Follow
+                                </button>
+
+                                <!-- Pending Request -->
+                                <button class="btn-pending-action" *ngIf="followStateMap[user.id] === 'pending'"
+                                    (click)="toggleFollowFromExplore(user.id, $event)">
+                                    <i class="fa-solid fa-clock"></i> Pending
+                                </button>
+                                <!-- Already Following -->
+                                <button class="btn-following-action" *ngIf="followStateMap[user.id] === 'following'"
+                                    (click)="toggleFollowFromExplore(user.id, $event)">
+                                    <i class="fa-solid fa-user-check"></i> Following
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Posts Results -->
+                <div class="results-section"
+                    *ngIf="postsResults.length > 0 && (activeTab === 'all' || activeTab === 'posts')">
+                    <h3 class="section-title">Posts</h3>
+                    <div class="posts-grid">
+                        @for (post of postsResults; track post.id) {
+                        <div class="explore-post-card glass-card" (click)="viewPost(post.id)">
+                            <div class="post-media-container" *ngIf="post.mediaUrls?.length">
+                                @if (post.postType === 'VIDEO' || post.mediaUrls[0]?.endsWith('.mp4') || post.mediaUrls[0]?.endsWith('.webm')) {
+                                <video [src]="post.mediaUrls[0]"></video>
+                                } @else {
+                                <img [src]="post.mediaUrls[0]" alt="Post media">
+                                }
+                                <div class="media-overlay">
+                                    <div class="stats">
+                                        <span><i class="fa-solid fa-heart"></i> {{post.likeCount || 0}}</span>
+                                        <span><i class="fa-solid fa-comment"></i> {{post.commentCount || 0}}</span>
+                                        <span><i class="fa-solid fa-share-nodes"></i> {{post.shareCount || 0}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-info">
+                                <div class="author-tag" (click)="viewProfile(post.authorId); $event.stopPropagation()">
+                                    <img [src]="post.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + post.authorName + '&background=random'"
+                                        alt="Avatar">
+                                    <div class="author-meta">
+                                        <span class="name">{{post.authorName}}</span>
+                                        <span class="handle">&#64;{{post.authorUsername}}</span>
+                                    </div>
+                                </div>
+                                <div class="post-text-content">
+                                    <app-hashtag-text [text]="post.content" class="content-preview"></app-hashtag-text>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state glass-card" *ngIf="usersResults.length === 0 && postsResults.length === 0">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>No results found for "{{searchQuery}}"</h3>
+                    <p>Try searching with different keywords or check spelling.</p>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Widgets Column -->
+        <aside class="widgets-column">
+
+            <!-- Suggestion Widget -->
+            <div class="widget-card glass-card suggestion-widget">
+                <div class="widget-header">
+                    <div class="header-left">
+                        <i class="fa-solid fa-sparkles" style="color: var(--accent-secondary)"></i>
+                        <h3>Suggestions</h3>
+                    </div>
+                    <button class="refresh-btn" (click)="loadSuggestedUsers()" [disabled]="isLoadingSuggestions">
+                        <i class="fa-solid fa-arrows-rotate" [class.fa-spin]="isLoadingSuggestions"></i>
+                    </button>
+                </div>
+                <div class="widget-content">
+                    <div *ngIf="isLoadingSuggestions && suggestedUsers.length === 0"
+                        style="text-align: center; padding: 1.5rem; color: var(--text-secondary);">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    </div>
+
+                    <div class="suggestion-list" *ngIf="suggestedUsers.length > 0">
+                        <div class="suggestion-item glass-card" *ngFor="let sUser of suggestedUsers">
+                            <div class="s-info" (click)="viewProfile(sUser.id)" style="cursor: pointer;">
+                                <div class="avatar-wrap">
+                                    <img [src]="sUser.profilePicture || 'https://ui-avatars.com/api/?name=' + sUser.name + '&background=random'"
+                                        alt="Avatar">
+                                </div>
+                                <div class="s-meta">
+                                    <span class="s-name">{{sUser.name}}</span>
+                                    <small class="s-username">@{{sUser.username}}</small>
+                                </div>
+                            </div>
+                            <button class="s-follow-btn" (click)="followFromSuggestions(sUser)" title="Follow">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="no-suggestions" *ngIf="!isLoadingSuggestions && suggestedUsers.length === 0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                        <p>No suggestions right now.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>

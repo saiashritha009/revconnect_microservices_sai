@@ -1,0 +1,5002 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.2)
+
+2026-03-18T02:53:53.931+05:30  INFO 27544 --- [connection-service] [           main] o.r.r.c.ConnectionServiceApplication     : Starting ConnectionServiceApplication v1.0.0 using Java 25.0.1 with PID 27544 (D:\Microservices\connection-service\target\connection-service-1.0.0.jar started by pavan in D:\Microservices\connection-service)
+2026-03-18T02:53:53.934+05:30  INFO 27544 --- [connection-service] [           main] o.r.r.c.ConnectionServiceApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-03-18T02:53:53.986+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2026-03-18T02:53:53.987+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt. Will be trying the next url if available
+2026-03-18T02:53:53.987+05:30  WARN 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@70fab835 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt
+2026-03-18T02:53:53.987+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2026-03-18T02:53:53.987+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt. Will be trying the next url if available
+2026-03-18T02:53:53.987+05:30  WARN 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@54709809 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt
+2026-03-18T02:53:53.987+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2026-03-18T02:53:53.988+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Exception on Url - http://localhost:8888:org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt. Will be trying the next url if available
+2026-03-18T02:53:53.988+05:30  WARN 27544 --- [connection-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Could not locate PropertySource ([ConfigServerConfigDataResource@2a2da905 uris = array<String>['http://localhost:8888'], optional = true, profiles = 'default']): I/O error on GET request for "http://localhost:8888/connection-service/default": Connection refused: getsockopt
+2026-03-18T02:53:55.056+05:30  INFO 27544 --- [connection-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-18T02:53:55.196+05:30  INFO 27544 --- [connection-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 132 ms. Found 1 JPA repository interface.
+2026-03-18T02:53:55.491+05:30  INFO 27544 --- [connection-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=32b65973-8321-33a3-bb20-af8ad3cf20c4
+2026-03-18T02:53:55.894+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$LoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-03-18T02:53:55.899+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.903+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.921+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.926+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.929+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda/0x000000009936eee8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.935+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.948+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.963+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.966+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.968+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.netflix.eureka.loadbalancer.LoadBalancerEurekaAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.970+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.979+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.993+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:55.997+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:56.001+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:56.004+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:56.006+05:30  WARN 27544 --- [connection-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2026-03-18T02:53:56.451+05:30  INFO 27544 --- [connection-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8085 (http)
+2026-03-18T02:53:56.465+05:30  INFO 27544 --- [connection-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-18T02:53:56.466+05:30  INFO 27544 --- [connection-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2026-03-18T02:53:56.501+05:30  INFO 27544 --- [connection-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-18T02:53:56.503+05:30  INFO 27544 --- [connection-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2514 ms
+2026-03-18T02:53:56.998+05:30  INFO 27544 --- [connection-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-18T02:53:57.050+05:30  INFO 27544 --- [connection-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2026-03-18T02:53:57.080+05:30  INFO 27544 --- [connection-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-18T02:53:57.297+05:30  INFO 27544 --- [connection-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-18T02:53:57.322+05:30  INFO 27544 --- [connection-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-18T02:53:57.751+05:30  INFO 27544 --- [connection-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@768e40af
+2026-03-18T02:53:57.754+05:30  INFO 27544 --- [connection-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-18T02:53:57.829+05:30  WARN 27544 --- [connection-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-18T02:53:58.663+05:30  INFO 27544 --- [connection-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-18T02:53:58.753+05:30  INFO 27544 --- [connection-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-18T02:53:59.178+05:30  INFO 27544 --- [connection-service] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-18T02:53:59.651+05:30  WARN 27544 --- [connection-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-18T02:53:59.729+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.openfeign.FeignClientFactoryBean   : For 'user-service' URL not provided. Will try picking an instance via load-balancing.
+2026-03-18T02:53:59.816+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.openfeign.FeignClientFactoryBean   : For 'notification-service' URL not provided. Will try picking an instance via load-balancing.
+2026-03-18T02:54:01.106+05:30  INFO 27544 --- [connection-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2026-03-18T02:54:01.188+05:30  WARN 27544 --- [connection-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-03-18T02:54:01.249+05:30  INFO 27544 --- [connection-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-03-18T02:54:01.441+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-03-18T02:54:01.768+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-03-18T02:54:01.782+05:30  INFO 27544 --- [connection-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T02:54:01.896+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-03-18T02:54:01.899+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-03-18T02:54:01.900+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-03-18T02:54:01.902+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-03-18T02:54:01.903+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-03-18T02:54:01.905+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-03-18T02:54:01.906+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-03-18T02:54:02.514+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-03-18T02:54:02.523+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-03-18T02:54:02.528+05:30  INFO 27544 --- [connection-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-03-18T02:54:02.535+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1773782642534 with initial instances count: 6
+2026-03-18T02:54:02.543+05:30  INFO 27544 --- [connection-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application CONNECTION-SERVICE with eureka with status UP
+2026-03-18T02:54:02.545+05:30  INFO 27544 --- [connection-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1773782642545, current=UP, previous=STARTING]
+2026-03-18T02:54:02.547+05:30  INFO 27544 --- [connection-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_CONNECTION-SERVICE/Pavan.mshome.net:connection-service:8085: registering service...
+2026-03-18T02:54:02.596+05:30  INFO 27544 --- [connection-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8085 (http) with context path ''
+2026-03-18T02:54:02.598+05:30  INFO 27544 --- [connection-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8085
+2026-03-18T02:54:02.630+05:30  INFO 27544 --- [connection-service] [           main] o.r.r.c.ConnectionServiceApplication     : Started ConnectionServiceApplication in 10.005 seconds (process running for 10.54)
+2026-03-18T02:54:02.661+05:30  INFO 27544 --- [connection-service] [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_CONNECTION-SERVICE/Pavan.mshome.net:connection-service:8085 - registration status: 204
+2026-03-18T02:56:45.692+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-18T02:56:45.693+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-18T02:56:45.695+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-03-18T02:56:45.792+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T02:56:45.842+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T02:59:01.921+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:00:03.429+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:02:52.288+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:02:52.393+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+2026-03-18T03:02:52.393+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:02:52.449+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:02:52.488+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:02:52.488+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:02:52.489+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:04:01.923+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:04:06.383+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:04:08.789+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:04:10.222+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:04:31.871+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:04:31.928+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:04:31.928+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:04:31.928+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:04:36.105+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:05:55.761+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:05:58.083+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:06:04.669+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:04.722+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:06:04.724+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:06:04.724+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:06:06.547+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:12.420+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:17.601+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:06:20.191+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:20.243+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:06:20.245+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:06:20.243+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:06:22.021+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:27.799+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:46.702+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:48.874+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:06:52.517+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:52.574+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:06:52.575+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:06:52.585+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:06:52.588+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:06:52.602+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:06:52.607+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:07:04.464+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:07:18.324+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:07:43.925+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:07:43.985+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:09:01.927+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:09:54.260+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:09:54.324+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:11:21.459+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:11:21.511+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:12:14.170+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:12:24.837+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:14:01.931+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:18:11.171+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:18:11.222+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:18:28.782+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:18:28.844+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:18:32.696+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:18:32.744+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+2026-03-18T03:18:32.747+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:18:32.748+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:18:32.783+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:18:32.783+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:18:32.786+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:18:32.811+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:18:51.841+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:19:01.933+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:19:54.311+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:19:54.386+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:19:54.393+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:19:54.393+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:19:54.393+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:19:54.413+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:19:54.436+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:07.302+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:07.358+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:20:07.364+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:20:07.364+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:20:07.364+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:07.370+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:20:07.388+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:17.984+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:18.047+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:20:18.047+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:20:18.080+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:20:18.082+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:20:18.082+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:20:18.091+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:19.732+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:20:19.785+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:20:31.110+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:21:36.705+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:36.733+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:21:36.733+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:21:36.733+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:21:38.133+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:39.950+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:41.399+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:42.983+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:45.688+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:21:47.670+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:21:50.910+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:01.299+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:05.811+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:05.844+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:22:05.844+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:22:05.844+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:22:09.718+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:22:11.663+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:15.878+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:22:24.212+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:22:28.518+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:32.097+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:32.138+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:22:32.138+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:22:32.138+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:22:33.348+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:22:35.651+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:41.668+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:48.998+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:22:51.337+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:22:55.826+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:24:01.740+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:24:01.950+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:24:10.266+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:24:11.889+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:24:11.939+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+2026-03-18T03:24:11.939+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:24:11.940+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:24:42.327+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:24:44.590+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:02.024+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:25:06.822+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:06.868+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:25:06.867+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:25:06.879+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:25:06.893+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:25:06.898+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:25:06.901+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:09.159+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:14.271+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get followers request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:14.403+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 5
+2026-03-18T03:25:14.403+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:25:14.403+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:25:14.404+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:25:25.725+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:25:25.764+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:25:41.668+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 2
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:26:02.110+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:26:05.156+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:26:14.607+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:26:16.651+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:26:38.487+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:26:40.399+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:27:21.100+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:21.171+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+2026-03-18T03:27:21.171+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:21.181+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:27:21.181+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:21.194+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:21.203+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:24.068+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:30.748+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:30.798+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:27:30.798+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:27:30.799+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:33.298+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:33.317+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+2026-03-18T03:27:33.318+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:33.335+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:33.553+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:33.572+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:35.187+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Follow user request for user ID: 6 from 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=?
+Hibernate: 
+    insert 
+    into
+        connections
+        (created_at, follower_id, following_id, status, updated_at) 
+    values
+        (?, ?, ?, ?, ?)
+2026-03-18T03:27:35.560+05:30 ERROR 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Error sending follow notification
+
+feign.FeignException$BadRequest: [400] during [POST] to [http://notification-service/api/notifications] [NotificationServiceClient#createNotification(NotificationRequest)]: [{"timestamp":"2026-03-17T21:57:35.544+00:00","status":400,"error":"Bad Request","path":"/api/notifications"}]
+	at feign.FeignException.clientErrorStatus(FeignException.java:222) ~[feign-core-13.1.jar!/:na]
+	at feign.FeignException.errorStatus(FeignException.java:203) ~[feign-core-13.1.jar!/:na]
+	at feign.FeignException.errorStatus(FeignException.java:194) ~[feign-core-13.1.jar!/:na]
+	at feign.codec.ErrorDecoder$Default.decode(ErrorDecoder.java:103) ~[feign-core-13.1.jar!/:na]
+	at feign.InvocationContext.decodeError(InvocationContext.java:126) ~[feign-core-13.1.jar!/:na]
+	at feign.InvocationContext.proceed(InvocationContext.java:72) ~[feign-core-13.1.jar!/:na]
+	at feign.ResponseHandler.handleResponse(ResponseHandler.java:63) ~[feign-core-13.1.jar!/:na]
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:114) ~[feign-core-13.1.jar!/:na]
+	at feign.SynchronousMethodHandler.invoke(SynchronousMethodHandler.java:70) ~[feign-core-13.1.jar!/:na]
+	at feign.ReflectiveFeign$FeignInvocationHandler.invoke(ReflectiveFeign.java:99) ~[feign-core-13.1.jar!/:na]
+	at jdk.proxy2/jdk.proxy2.$Proxy163.createNotification(Unknown Source) ~[na:na]
+	at org.revature.revconnect.connectionservice.controller.ConnectionController.followUser(ConnectionController.java:63) ~[!/:1.0.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:261) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:189) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-03-18T03:27:43.430+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:27:45.341+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:27:45.401+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:27:45.402+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 6
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:27:45.417+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:27:45.429+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:45.449+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:27:45.456+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:46.949+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:27:46.951+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get past connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status in (?, ?) 
+    limit
+        ?, ?
+2026-03-18T03:27:50.606+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Accept connection request: 16
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    update
+        connections 
+    set
+        created_at=?,
+        follower_id=?,
+        following_id=?,
+        status=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-18T03:27:50.784+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 6
+2026-03-18T03:27:50.785+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get past connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status in (?, ?) 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:27:50.811+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:54.155+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 6
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:55.773+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Unfollow user request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=?
+Hibernate: 
+    delete 
+    from
+        connections 
+    where
+        id=?
+2026-03-18T03:27:59.338+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:27:59.377+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+2026-03-18T03:27:59.377+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:27:59.377+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:01.930+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:01.955+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:02.048+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:02.078+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:02.198+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:02.232+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:02.287+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:02.328+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:04.170+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Follow user request for user ID: 1 from 6
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=?
+Hibernate: 
+    insert 
+    into
+        connections
+        (created_at, follower_id, following_id, status, updated_at) 
+    values
+        (?, ?, ?, ?, ?)
+2026-03-18T03:28:04.231+05:30 ERROR 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Error sending follow notification
+
+feign.FeignException$BadRequest: [400] during [POST] to [http://notification-service/api/notifications] [NotificationServiceClient#createNotification(NotificationRequest)]: [{"timestamp":"2026-03-17T21:58:04.228+00:00","status":400,"error":"Bad Request","path":"/api/notifications"}]
+	at feign.FeignException.clientErrorStatus(FeignException.java:222) ~[feign-core-13.1.jar!/:na]
+	at feign.FeignException.errorStatus(FeignException.java:203) ~[feign-core-13.1.jar!/:na]
+	at feign.FeignException.errorStatus(FeignException.java:194) ~[feign-core-13.1.jar!/:na]
+	at feign.codec.ErrorDecoder$Default.decode(ErrorDecoder.java:103) ~[feign-core-13.1.jar!/:na]
+	at feign.InvocationContext.decodeError(InvocationContext.java:126) ~[feign-core-13.1.jar!/:na]
+	at feign.InvocationContext.proceed(InvocationContext.java:72) ~[feign-core-13.1.jar!/:na]
+	at feign.ResponseHandler.handleResponse(ResponseHandler.java:63) ~[feign-core-13.1.jar!/:na]
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:114) ~[feign-core-13.1.jar!/:na]
+	at feign.SynchronousMethodHandler.invoke(SynchronousMethodHandler.java:70) ~[feign-core-13.1.jar!/:na]
+	at feign.ReflectiveFeign$FeignInvocationHandler.invoke(ReflectiveFeign.java:99) ~[feign-core-13.1.jar!/:na]
+	at jdk.proxy2/jdk.proxy2.$Proxy163.createNotification(Unknown Source) ~[na:na]
+	at org.revature.revconnect.connectionservice.controller.ConnectionController.followUser(ConnectionController.java:63) ~[!/:1.0.0]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:261) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:189) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-03-18T03:28:12.261+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:28:13.500+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:28:13.554+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:28:13.557+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:13.572+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:13.593+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Check if following user ID: 4
+2026-03-18T03:28:13.598+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:28:13.606+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:14.727+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:28:14.727+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get past connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status in (?, ?) 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:17.535+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Accept connection request: 17
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.id=?
+Hibernate: 
+    update
+        connections 
+    set
+        created_at=?,
+        follower_id=?,
+        following_id=?,
+        status=?,
+        updated_at=? 
+    where
+        id=?
+2026-03-18T03:28:17.641+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 1
+2026-03-18T03:28:17.641+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get past connection requests
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status in (?, ?) 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:28:17.686+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:28:20.115+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:29:01.956+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:29:47.419+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:29:59.083+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:30:01.410+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 1
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:30:06.222+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:30:57.029+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:33:42.539+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:33:46.977+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:33:53.677+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:34:01.971+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:35:00.622+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:35:24.092+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:35:53.681+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:35:53.714+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:36:05.938+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:36:26.111+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:36:31.151+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:36:55.933+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:38:03.237+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:38:09.433+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:38:27.715+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:38:41.297+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:38:41.342+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:39:01.980+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:39:02.827+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:39:02.879+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:39:19.312+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:39:39.205+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:39:39.249+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:39:51.930+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:39:51.981+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 2
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:40:08.758+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:41:56.376+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:41:56.422+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:41:59.661+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:41:59.701+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:41:59.703+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:41:59.728+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:41:59.728+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:41:59.732+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:41:59.735+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:42:19.165+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:42:19.204+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:42:32.846+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:42:32.902+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+2026-03-18T03:42:32.903+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:42:32.920+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Check if following user ID: 1
+2026-03-18T03:42:32.922+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Check if following user ID: 2
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:42:32.926+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Check if following user ID: 6
+Hibernate: 
+    select
+        c1_0.id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?
+2026-03-18T03:42:32.936+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get sent pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:42:37.779+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:42:37.844+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:43:48.122+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-4] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:43:58.447+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:43:58.488+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:44:01.995+05:30  INFO 27544 --- [connection-service] [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-03-18T03:44:50.587+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:44:51.906+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:44:52.923+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:44:54.207+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:44:54.292+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+2026-03-18T03:44:54.326+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.follower_id 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:44:56.813+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-2] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:45:05.917+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:45:05.968+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+2026-03-18T03:45:14.151+05:30  INFO 27544 --- [connection-service] [io-8085-exec-10] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 4
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:45:18.886+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-3] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:45:48.917+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-8] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:45:48.967+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-7] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?
+2026-03-18T03:45:56.160+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-1] o.r.r.c.controller.ConnectionController  : Get following request for user ID: 4
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:46:00.077+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-6] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:46:10.783+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-9] o.r.r.c.controller.ConnectionController  : Get pending connection requests
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.created_at,
+        c1_0.follower_id,
+        c1_0.following_id,
+        c1_0.status,
+        c1_0.updated_at 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=? 
+    limit
+        ?, ?
+2026-03-18T03:46:10.826+05:30  INFO 27544 --- [connection-service] [nio-8085-exec-5] o.r.r.c.controller.ConnectionController  : Get connection stats request for user ID: 4
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.following_id=? 
+        and c1_0.status=?
+Hibernate: 
+    select
+        c1_0.following_id 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status='ACCEPTED'
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        connections c1_0 
+    where
+        c1_0.follower_id=? 
+        and c1_0.status=?

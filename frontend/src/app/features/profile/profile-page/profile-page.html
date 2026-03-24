@@ -1,0 +1,840 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <!-- Middle Profile View -->
+        <main class="feed-column">
+
+            <div *ngIf="isLoadingProfile" class="glass-card"
+                style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading profile...
+            </div>
+
+            <div *ngIf="!isLoadingProfile && user" class="profile-header-card glass-card">
+                <!-- Cover Photo Section -->
+                <div class="cover-photo-wrapper" [class.editable]="isCurrentUser()"
+                    (click)="isCurrentUser() && coverInput.click()">
+                    <div class="cover-photo"
+                        [style.backgroundImage]="user.coverPhoto ? 'url(' + user.coverPhoto + ')' : ''">
+                        <div class="upload-overlay" *ngIf="isCurrentUser()" title="Update Cover Photo">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <div class="upload-progress" *ngIf="isUploadingCoverPhoto">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        </div>
+                    </div>
+                    <input type="file" #coverInput style="display: none" accept="image/*"
+                        (change)="onCoverPhotoSelected($event)">
+                </div>
+
+                <div class="profile-header-content">
+                    <div class="profile-main-row">
+                        <div class="profile-avatar-wrapper" [class.editable]="isCurrentUser()"
+                            (click)="isCurrentUser() && profileInput.click()">
+                            <div class="profile-avatar">
+                                <img [src]="user.profilePicture || 'https://ui-avatars.com/api/?name=' + user.name + '&background=random&size=256'"
+                                    alt="{{user.name}}">
+
+                                <div class="upload-overlay" *ngIf="isCurrentUser()">
+                                    <i class="fa-solid fa-camera"></i>
+                                </div>
+                                <div class="upload-progress" *ngIf="isUploadingProfilePic">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                </div>
+                            </div>
+                            <input type="file" #profileInput style="display: none" accept="image/*"
+                                (change)="onProfilePicSelected($event)">
+                        </div>
+
+                        <div class="profile-actions">
+                            <!-- Own profile: Edit button -->
+                            <div class="action-buttons-container">
+
+                                <button class="btn-edit-profile" *ngIf="isCurrentUser()" (click)="openEditModal()">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span>Edit Profile</span>
+                                </button>
+                                <!-- Debug Helper -->
+                                <button class="btn-verify"
+                                    *ngIf="isCurrentUser() && currentUser?.userType !== 'ADMIN' && isDebugMode()"
+                                    (click)="promoteToAdmin()"
+                                    style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">
+                                    <i class="fa-solid fa-bug"></i>
+                                    <span>DEBUG: Promote to Admin</span>
+                                </button>
+                            </div>
+
+                            <!-- Other user: Message + Follow/Unfollow -->
+                            <ng-container *ngIf="!isCurrentUser()">
+                                <button class="btn-secondary message-btn" *ngIf="isFollowingUser === 'following'" (click)="startMessage()">
+                                    <i class="fa-solid fa-envelope"></i> Message
+                                </button>
+
+                                <button class="btn-primary" *ngIf="isFollowingUser === 'none'" (click)="toggleFollow()">
+                                    <i class="fa-solid fa-user-plus" *ngIf="!isFollowLoading"></i>
+                                    <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isFollowLoading"></i>
+                                    Follow
+                                </button>
+
+                                <button class="btn-secondary pending-btn" *ngIf="isFollowingUser === 'pending'"
+                                    (click)="toggleFollow()" [disabled]="isFollowLoading">
+                                    <i class="fa-solid fa-clock" *ngIf="!isFollowLoading"></i>
+                                    <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isFollowLoading"></i>
+                                    Pending
+                                </button>
+
+                                <button class="btn-secondary following-btn" *ngIf="isFollowingUser === 'following'"
+                                    (click)="toggleFollow()" [disabled]="isFollowLoading">
+                                    <i class="fa-solid fa-user-check" *ngIf="!isFollowLoading"></i>
+                                    <i class="fa-solid fa-circle-notch fa-spin" *ngIf="isFollowLoading"></i>
+                                    Following
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <h1>
+                            {{user.name}}
+                            <small *ngIf="user.businessHours"
+                                style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-left: 0.5rem; vertical-align: middle;">
+                                ({{user.businessHours}})
+                            </small>
+                            <i *ngIf="user.userType === 'BUSINESS'" class="fa-solid fa-briefcase"
+                                style="font-size: 0.8rem; color: var(--accent-primary); margin-left: 0.5rem;"
+                                title="Business Account"></i>
+                            <i *ngIf="user.userType === 'CREATOR'" class="fa-solid fa-wand-magic-sparkles"
+                                style="font-size: 0.8rem; color: var(--accent-secondary); margin-left: 0.5rem;"
+                                title="Creator Account"></i>
+
+                        </h1>
+                        <span class="username">&#64;{{user.username}}</span>
+
+                        <p class="bio" *ngIf="user.bio">{{user.bio}}</p>
+                        <p class="bio placeholder-bio" *ngIf="!user.bio && isCurrentUser()"><em>Add a bio to let network
+                                know more about you.</em></p>
+
+                        <!-- Business Information -->
+                        <div class="business-info-badges"
+                            *ngIf="user.userType === 'BUSINESS' && (user.category || user.contactEmail || user.contactPhone || user.address)"
+                            style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge" *ngIf="user.category"
+                                style="background: rgba(96, 165, 250, 0.1); color: var(--accent-primary); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid rgba(96, 165, 250, 0.2);"><i
+                                    class="fa-solid fa-tag"></i> {{user.category}}</span>
+                            <span class="badge" *ngIf="user.contactEmail"
+                                style="background: rgba(96, 165, 250, 0.1); color: var(--accent-primary); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid rgba(96, 165, 250, 0.2);"><i
+                                    class="fa-solid fa-envelope"></i> {{user.contactEmail}}</span>
+                            <span class="badge" *ngIf="user.address"
+                                style="background: rgba(96, 165, 250, 0.1); color: var(--accent-primary); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid rgba(96, 165, 250, 0.2);"><i
+                                    class="fa-solid fa-location-dot"></i> {{user.address}}</span>
+                        </div>
+
+                        <!-- Creator Information -->
+                        <div class="business-info-badges"
+                            *ngIf="user.userType === 'CREATOR' && (user.category || user.contactEmail)"
+                            style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; margin-bottom: 1rem;">
+                            <span class="badge" *ngIf="user.category"
+                                style="background: rgba(167, 139, 250, 0.1); color: #a78bfa; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid rgba(167, 139, 250, 0.2);"><i
+                                    class="fa-solid fa-wand-magic-sparkles"></i> Creator: {{user.category}}</span>
+                            <span class="badge" *ngIf="user.contactEmail"
+                                style="background: rgba(167, 139, 250, 0.1); color: #a78bfa; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; border: 1px solid rgba(167, 139, 250, 0.2);"><i
+                                    class="fa-solid fa-at"></i> {{user.contactEmail}}</span>
+                        </div>
+
+                        <div class="profile-stats">
+                            <div class="stat" (click)="openConnections('followers')"
+                                style="cursor: pointer; transition: color 0.2s;"
+                                onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color=''">
+                                <span class="count">{{stats?.followersCount || 0}}</span>
+                                <span class="label">Followers</span>
+                            </div>
+                            <div class="stat" (click)="openConnections('following')"
+                                style="cursor: pointer; transition: color 0.2s;"
+                                onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color=''">
+                                <span class="count">{{stats?.followingCount || 0}}</span>
+                                <span class="label">Following</span>
+                            </div>
+                            <div class="stat">
+                                <span class="count">{{posts.length}}</span>
+                                <span class="label">Posts</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-tabs">
+                    <div class="tab" [class.active]="activeTab === 'posts'" (click)="setTab('posts')">Posts</div>
+                    <div class="tab" [class.active]="activeTab === 'showcase'" (click)="setTab('showcase')"
+                        *ngIf="user.userType === 'BUSINESS' || user.userType === 'CREATOR'">
+                        {{ user.userType === 'CREATOR' ? 'Portfolio' : 'Showcase' }}
+                    </div>
+                    <div class="tab" [class.active]="activeTab === 'likes'" (click)="setTab('likes')">Likes</div>
+                    <div class="tab" *ngIf="isCurrentUser()" [class.active]="activeTab === 'requests'"
+                        (click)="setTab('requests')">
+                        Requests
+                        <span class="badge" *ngIf="pendingRequests.length > 0"
+                            style="background: var(--accent-primary); color: white; border-radius: 999px; padding: 0.1rem 0.4rem; font-size: 0.7rem; margin-left: 0.3rem;">
+                            {{pendingRequests.length}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Feed Stream -->
+            <div class="feed-stream"
+                *ngIf="!isLoadingProfile && user && (activeTab === 'posts' || activeTab === 'likes')">
+                <div *ngIf="isLoadingDisplayPosts" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+                </div>
+
+                <div *ngIf="!isCurrentUser() && user.privacy === 'PRIVATE' && isFollowingUser !== 'following'" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    <i class="fa-solid fa-lock fa-2x" style="margin-bottom: 1rem; opacity: 0.5;"></i>
+                    <p>This account is private. Follow to see their posts.</p>
+                </div>
+
+                <ng-container *ngIf="isCurrentUser() || isFollowingUser === 'following' || user.privacy !== 'PRIVATE'">
+                    <div *ngIf="!isLoadingDisplayPosts && displayPosts.length === 0" class="glass-card"
+                        style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                        No {{ activeTab }} found.
+                    </div>
+
+                    @for (post of displayPosts; track post.id) {
+                    <div class="post-card glass-card" [class.pinned-post]="post.pinned" [class.dropdown-open]="postOptionsOpenMap[post.id]">
+                        <div class="post-header">
+                            <div class="author-info">
+                                <img [src]="post.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + post.authorName + '&background=random'"
+                                    alt="{{post.authorName}}">
+                                <div class="meta">
+                                    <h4>
+                                        {{post.authorName}}
+                                        <i class="fa-solid fa-thumbtack pinned-icon" *ngIf="post.pinned"
+                                            title="Pinned Post"></i>
+                                    </h4>
+                                    <span>&#64;{{post.authorUsername}} • {{getRelativeTime(post.createdAt)}}</span>
+                                    <div class="partnership-badge" *ngIf="post.isPromotional">
+                                        <i class="fa-solid fa-handshake" style="color: var(--accent-primary);"></i> Paid
+                                        Partnership
+                                        <span *ngIf="post.partnerName"
+                                            style="color: inherit; font-size: inherit; font-weight: inherit; margin-left: 3px;">
+                                            with <strong>{{post.partnerName}}</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="options-container" *ngIf="isPostAuthor(post)">
+                                <button class="options-btn" (click)="togglePostOptions(post.id)">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <div class="options-dropdown glass-card" *ngIf="postOptionsOpenMap[post.id]">
+                                    <button (click)="togglePin(post.id)">
+                                        <i class="fa-solid fa-thumbtack"></i> {{post.pinned ? 'Unpin' : 'Pin'}}
+                                    </button>
+                                    <button (click)="editPost(post)">
+                                        <i class="fa-solid fa-pen"></i> Edit Post
+                                    </button>
+                                    <button class="delete-opt" (click)="deletePost(post.id)">
+                                        <i class="fa-solid fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-content">
+                            <!-- Edit Mode -->
+                            <div *ngIf="editingPostId === post.id" class="edit-mode">
+                                <textarea [(ngModel)]="editPostContent" class="form-control mb-2"></textarea>
+                                <div class="edit-actions">
+                                    <button class="btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+                                    <button class="btn-primary btn-sm" (click)="savePostEdit(post.id)">Save</button>
+                                </div>
+                            </div>
+                            <!-- View Mode -->
+                            <div *ngIf="editingPostId !== post.id">
+                                <app-hashtag-text [text]="post.content"></app-hashtag-text>
+                                @if (post.postType === 'VIDEO' || (post.mediaUrls && post.mediaUrls.length > 0 &&
+                                (post.mediaUrls[0].includes('.mp4') || post.mediaUrls[0].includes('.webm')))) {
+                                <video [src]="post.mediaUrls[0]" controls class="post-image"
+                                    style="width: 100%; border-radius: 8px; margin-top: 1rem;"></video>
+                                } @else if (post.mediaUrls && post.mediaUrls.length > 0) {
+                                <img [src]="post.mediaUrls[0]" alt="Post attachment" class="post-image">
+                                }
+                                <!-- Business Call To Action -->
+                                <div class="post-cta" *ngIf="post.ctaLabel && post.ctaUrl" style="margin-top: 1.25rem;">
+                                    <a [href]="post.ctaUrl" target="_blank" class="btn-primary"
+                                        style="display: block; text-align: center; text-decoration: none; padding: 0.8rem; border-radius: 8px; font-weight: 600; width: 100%;">
+                                        {{post.ctaLabel}} <i class="fa-solid fa-arrow-up-right-from-square"
+                                            style="margin-left: 0.5rem; opacity: 0.8;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-actions">
+                            <button class="interaction-btn count-btn" [class.liked]="likedMap[post.id]"
+                                (click)="toggleLike(post.id)">
+                                <i [class]="likedMap[post.id] ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                                <span>{{post.likeCount}}</span>
+                            </button>
+                            <button class="interaction-btn count-btn" [class.active]="commentOpenMap[post.id]"
+                                (click)="toggleComments(post.id)">
+                                <i class="fa-regular fa-comment"></i>
+                                <span>{{post.commentCount}}</span>
+                            </button>
+                            <button class="interaction-btn count-btn" (click)="sharePost(post.id)">
+                                <i class="fa-solid fa-share-nodes"></i>
+                                <span>{{post.shareCount}}</span>
+                            </button>
+                            <button class="interaction-btn right-align" (click)="toggleBookmark(post.id)">
+                                <i class="fa-solid fa-bookmark" *ngIf="bookmarkedMap[post.id]"
+                                    style="color: #3b82f6;"></i>
+                                <i class="fa-regular fa-bookmark" *ngIf="!bookmarkedMap[post.id]"></i>
+                            </button>
+                        </div>
+
+                        <!-- Comment Section -->
+                        <div class="comment-section" *ngIf="commentOpenMap[post.id]">
+                            <div class="comment-input-row">
+                                <input type="text" class="comment-input" placeholder="Write a comment..."
+                                    [(ngModel)]="newCommentMap[post.id]" (keyup.enter)="submitComment(post.id)">
+                                <button class="btn-primary comment-send-btn" (click)="submitComment(post.id)"
+                                    [disabled]="!newCommentMap[post.id]?.trim()">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div *ngIf="commentLoadingMap[post.id]" class="comments-loading">
+                                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading comments...
+                            </div>
+                            <div class="comments-list" *ngIf="!commentLoadingMap[post.id]">
+                                <div class="comment-item" *ngFor="let comment of commentsMap[post.id]">
+                                    <img [src]="comment.profilePicture || 'https://ui-avatars.com/api/?name=' + comment.name + '&background=random'"
+                                        alt="Avatar" class="comment-avatar">
+                                    <div class="comment-body">
+                                        <div class="comment-header-row">
+                                            <div class="comment-meta">
+                                                <strong>{{comment.name}}</strong>
+                                                <span>&#64;{{comment.username}} •
+                                                    {{getRelativeTime(comment.createdAt)}}</span>
+                                            </div>
+                                            <div class="comment-options"
+                                                *ngIf="canEditComment(comment) || canDeleteComment(comment, post)">
+                                                <button class="options-btn" (click)="toggleCommentOptions(comment.id)">
+                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                </button>
+                                                <div class="options-dropdown glass-card"
+                                                    *ngIf="commentOptionsOpenMap[comment.id]">
+                                                    <button *ngIf="canEditComment(comment)"
+                                                        (click)="editComment(comment, post.id); toggleCommentOptions(comment.id)">
+                                                        <i class="fa-solid fa-pen"></i> Edit
+                                                    </button>
+                                                    <button class="delete-opt" *ngIf="canDeleteComment(comment, post)"
+                                                        (click)="deleteComment(comment.id, post.id); toggleCommentOptions(comment.id)">
+                                                        <i class="fa-solid fa-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Comment Edit Mode -->
+                                        <div *ngIf="editingCommentId === comment.id" class="comment-edit">
+                                            <input type="text" [(ngModel)]="editCommentContent"
+                                                class="form-control form-control-sm">
+                                            <div class="mt-1">
+                                                <button class="btn-primary btn-xs"
+                                                    (click)="saveCommentEdit(comment.id, post.id)">Save</button>
+                                                <button class="btn-secondary btn-xs ml-1"
+                                                    (click)="cancelCommentEdit()">Cancel</button>
+                                            </div>
+                                        </div>
+                                        <p *ngIf="editingCommentId !== comment.id">{{comment.content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </ng-container>
+            </div>
+
+
+
+            <!-- Requests Tab -->
+            <div class="feed-stream" *ngIf="!isLoadingProfile && user && activeTab === 'requests'">
+                <!-- Pending Requests -->
+                <div class="section-title" *ngIf="pendingRequests.length > 0 || isLoadingRequests"
+                    style="margin-bottom: 1rem; color: var(--text-primary); font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-user-plus" style="color: var(--accent-primary);"></i>
+                    Pending Requests
+                </div>
+
+                <div *ngIf="isLoadingRequests" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem; margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading requests...
+                </div>
+
+                <div *ngIf="!isLoadingRequests && pendingRequests.length === 0" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem; margin-bottom: 1.5rem;">
+                    No pending friend requests.
+                </div>
+
+                <div class="users-grid" *ngIf="!isLoadingRequests && pendingRequests.length > 0"
+                    style="margin-bottom: 2rem;">
+                    <div class="user-card glass-card" *ngFor="let req of pendingRequests"
+                        style="display: flex; align-items: center; justify-content: space-between; padding: 1.2rem; margin-bottom: 0.8rem;">
+                        <div class="user-info" style="display: flex; align-items: center; gap: 1rem;">
+                            <img [src]="req.profilePicture || 'https://ui-avatars.com/api/?name=' + req.name + '&background=random'"
+                                alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--text-primary); font-size: 1rem;">{{req.name}}</h4>
+                                <span
+                                    style="color: var(--text-secondary); font-size: 0.85rem;">&#64;{{req.username}}</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons" style="display: flex; gap: 0.5rem;">
+                            <button class="btn-primary" (click)="acceptRequest(req.id)"
+                                style="padding: 0.4rem 1rem; font-size: 0.85rem;">
+                                <i class="fa-solid fa-check"></i> Approve
+                            </button>
+                            <button class="btn-secondary" (click)="rejectRequest(req.id)"
+                                style="padding: 0.4rem 1rem; font-size: 0.85rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.2); background: rgba(239, 68, 68, 0.05);">
+                                <i class="fa-solid fa-xmark"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Section -->
+                <div class="section-title"
+                    style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-primary); font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color: var(--text-secondary);"></i>
+                    History
+                </div>
+
+                <div *ngIf="isLoadingPastRequests" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading history...
+                </div>
+
+                <div *ngIf="!isLoadingPastRequests && pastRequests.length === 0" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    No past requests record.
+                </div>
+
+                <div class="users-grid" *ngIf="!isLoadingPastRequests && pastRequests.length > 0">
+                    <div class="user-card glass-card" *ngFor="let req of pastRequests"
+                        style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; margin-bottom: 0.6rem; opacity: 0.9;">
+                        <div class="user-info" style="display: flex; align-items: center; gap: 1rem;">
+                            <img [src]="req.profilePicture || 'https://ui-avatars.com/api/?name=' + req.name + '&background=random'"
+                                alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <div>
+                                <h4 style="margin: 0; color: var(--text-primary); font-size: 0.9rem;">{{req.name}}</h4>
+                                <span
+                                    style="color: var(--text-secondary); font-size: 0.75rem;">&#64;{{req.username}}</span>
+                            </div>
+                        </div>
+                        <div class="status-indicator" [style.color]="req.status === 'ACCEPTED' ? '#10b981' : '#ef4444'"
+                            style="font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.6rem; border-radius: 6px; background: rgba(0,0,0,0.02);">
+                            <i class="fa-solid" [class.fa-circle-check]="req.status === 'ACCEPTED'"
+                                [class.fa-circle-xmark]="req.status === 'REJECTED'"></i>
+                            {{ req.status === 'ACCEPTED' ? 'Accepted' : 'Declined' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Showcase Tab -->
+            <div class="feed-stream" *ngIf="!isLoadingProfile && user && activeTab === 'showcase'">
+                <div class="glass-card showcase-management mb-4" *ngIf="isCurrentUser()">
+                    <h3>Manage Your {{ user.userType === 'CREATOR' ? 'Portfolio' : 'Showcase' }}</h3>
+                    <p class="text-secondary small mb-3">Add your products, services, or portfolio items here.</p>
+                    <div class="showcase-form grid-2-col">
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="newShowcaseItem.name"
+                                placeholder="e.g. Logo Design">
+                        </div>
+                        <div class="form-group">
+                            <label>Category/Type</label>
+                            <input type="text" class="form-control" [(ngModel)]="newShowcaseItem.type"
+                                placeholder="e.g. Graphic Design">
+                        </div>
+                        <div class="form-group">
+                            <label>Price/Rate</label>
+                            <input type="text" class="form-control" [(ngModel)]="newShowcaseItem.price"
+                                placeholder="e.g. $50/hr">
+                        </div>
+                        <div class="form-group">
+                            <label>External Link</label>
+                            <input type="text" class="form-control" [(ngModel)]="newShowcaseItem.link"
+                                placeholder="https://...">
+                        </div>
+                    </div>
+                    <button class="btn-primary w-100 mt-3" (click)="addShowcaseItem()" [disabled]="isAddingShowcase">
+                        <i class="fa-solid" [class.fa-plus]="!isAddingShowcase"
+                            [class.fa-circle-notch]="isAddingShowcase" [class.fa-spin]="isAddingShowcase"></i>
+                        Add to {{ user.userType === 'CREATOR' ? 'Portfolio' : 'Showcase' }}
+                    </button>
+                </div>
+
+                <div *ngIf="isLoadingShowcase" class="glass-card text-center p-4">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading showcase...
+                </div>
+
+                <div *ngIf="!isLoadingShowcase && showcaseItems.length === 0" class="glass-card text-center p-4">
+                    <i class="fa-solid fa-shop fa-2x mb-2 opacity-50"></i>
+                    <p>No showcase items to display.</p>
+                </div>
+
+                <div class="showcase-grid" *ngIf="!isLoadingShowcase && showcaseItems.length > 0">
+                    <div class="showcase-item glass-card" *ngFor="let item of showcaseItems; let i = index">
+                        <div class="item-header">
+                            <span class="item-type">{{item.type}}</span>
+                            <button class="icon-btn text-danger" *ngIf="isCurrentUser()"
+                                (click)="removeShowcaseItem(i)">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <h4 class="item-name">{{item.name}}</h4>
+                        <div class="item-price">{{item.price}}</div>
+                        <a *ngIf="item.link" [href]="item.link" target="_blank" class="btn-secondary btn-sm w-100 mt-2">
+                            View Details <i class="fa-solid fa-external-link small ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar (About / Details) -->
+        <aside class="widgets-column">
+            <!-- Dynamic Partnerships Card -->
+            <div class="widget-card endorsements-card glass-card"
+                *ngIf="user?.userType === 'CREATOR' || user?.userType === 'BUSINESS'">
+                <div class="widget-header">
+                    <h3>{{ user?.userType === 'CREATOR' ? 'Brand Partnerships' : 'Strategic Partnerships' }}</h3>
+                    <button class="edit-link" *ngIf="isCurrentUser()" (click)="openEditModal()"
+                        title="Manage partnerships">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </div>
+                <div class="widget-content">
+                    <div class="endorsement-list" *ngIf="endorsementLinks.length > 0">
+                        <a *ngFor="let link of endorsementLinks" [href]="link.url" target="_blank"
+                            class="endorsement-item">
+                            <i class="fa-solid fa-handshake"></i>
+                            <div class="info">
+                                <span>{{link.title || 'Partner Link'}}</span>
+                                <small>{{link.url.replace('https://', '').replace('http://', '').split('/')[0]}}</small>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-widget-state" *ngIf="endorsementLinks.length === 0">
+                        <div class="empty-icon">
+                            <i class="fa-solid fa-handshake-slash"></i>
+                        </div>
+                        <p>{{ isCurrentUser() ? 'Add your brand partnerships to showcase' : 'No partnerships to show
+                            yet' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-card about-card glass-card" *ngIf="user">
+                <div class="widget-header">
+                    <h3>About {{user.name.split(' ')[0]}}</h3>
+                </div>
+                <div class="widget-content about-list">
+                    <div class="about-item" *ngIf="user.location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div class="info">
+                            <span>Lives in</span>
+                            <small>{{user.location}}</small>
+                        </div>
+                    </div>
+
+                    <div class="about-item" *ngIf="user.website">
+                        <i class="fa-solid fa-link"></i>
+                        <div class="info">
+                            <span>Website</span>
+                            <a [href]="user.website" target="_blank">{{user.website.replace('https://', '')}}</a>
+                        </div>
+                    </div>
+
+                    <div class="about-item" *ngIf="user.createdAt">
+                        <i class="fa-regular fa-calendar-days"></i>
+                        <div class="info">
+                            <span>Joined</span>
+                            <small>{{getJoinedDate(user.createdAt)}}</small>
+                        </div>
+                    </div>
+
+                    <div class="about-item" *ngIf="user.businessName && user.userType === 'BUSINESS'">
+                        <i class="fa-solid fa-building"></i>
+                        <div class="info">
+                            <span>Business Info</span>
+                            <small>{{user.businessName}}</small>
+                            <small>{{user.category}}</small>
+                        </div>
+                    </div>
+
+                    <div class="about-item" *ngIf="user.businessHours && user.userType === 'BUSINESS'">
+                        <i class="fa-regular fa-clock"></i>
+                        <div class="info">
+                            <span>Business Hours</span>
+                            <small>{{user.businessHours}}</small>
+                        </div>
+                    </div>
+
+                    <div class="about-item" *ngIf="user.userType === 'CREATOR'">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <div class="info">
+                            <span>Creative Brand</span>
+                            <small>{{user.category}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" *ngIf="isEditModalOpen" (click)="closeEditModal()">
+        <div class="modal-content glass-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Edit Profile</h2>
+                <button class="close-btn" (click)="closeEditModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Display Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="editData.name" placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea class="form-control" [(ngModel)]="editData.bio" rows="3"
+                        placeholder="Tell us about yourself"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="editData.location" placeholder="City, Country">
+                </div>
+
+                <div class="form-group">
+                    <label>Website</label>
+                    <input type="url" class="form-control" [(ngModel)]="editData.website" placeholder="https://...">
+                </div>
+
+                <div class="endorsements-management"
+                    *ngIf="user?.userType === 'CREATOR' || user?.userType === 'BUSINESS'">
+                    <div class="section-header">
+                        <h4>{{ user?.userType === 'CREATOR' ? 'Endorsements & Partnerships' : 'Strategic Partnerships'
+                            }}</h4>
+                        <button class="btn-add-partner" (click)="addEndorsementLink()">
+                            <i class="fa-solid fa-plus"></i> Add Link
+                        </button>
+                    </div>
+
+                    <div *ngFor="let link of endorsementLinks; let i = index" class="link-edit-card">
+                        <div class="link-inputs">
+                            <div class="form-group mini">
+                                <label>Title</label>
+                                <input type="text" class="form-control" [(ngModel)]="link.title"
+                                    placeholder="Puma, Nike...">
+                            </div>
+                            <div class="form-group mini">
+                                <label>URL</label>
+                                <input type="url" class="form-control" [(ngModel)]="link.url" placeholder="https://...">
+                            </div>
+                        </div>
+                        <button class="remove-btn" (click)="removeEndorsementLink(i)" title="Remove partner">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+
+                    <div class="empty-links" *ngIf="endorsementLinks.length === 0">
+                        <i class="fa-solid fa-handshake-slash"></i>
+                        <p>No partnerships added yet.</p>
+                    </div>
+                </div>
+
+                <div *ngIf="user?.userType === 'BUSINESS'">
+                    <h4 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--accent-primary);">Business Details
+                    </h4>
+                    <div class="form-group">
+                        <label>Business Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="editData.businessName">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <div
+                            style="position: relative; display: flex; align-items: center; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 12px; transition: var(--transition-fast);">
+                            <select class="form-control" [(ngModel)]="editData.category"
+                                style="width: 100%; border: none; background: transparent; padding-right: 2.5rem; appearance: none; -webkit-appearance: none; cursor: pointer;">
+                                <option value="">Select Category</option>
+                                <option value="TECHNOLOGY">Technology</option>
+                                <option value="FASHION">Fashion</option>
+                                <option value="FOOD_BEVERAGE">Food & Beverage</option>
+                                <option value="HEALTH_FITNESS">Health & Fitness</option>
+                                <option value="ENTERTAINMENT">Entertainment</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="TRAVEL">Travel</option>
+                                <option value="CRICKET">Cricket</option>
+                                <option value="FINANCE">Finance</option>
+                                <option value="RETAIL">Retail</option>
+                                <option value="SERVICES">Services</option>
+                                <option value="NONPROFIT">Non-Profit</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down"
+                                style="position: absolute; right: 1.25rem; color: var(--text-muted); pointer-events: none; font-size: 0.9rem;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Email</label>
+                        <input type="email" class="form-control" [(ngModel)]="editData.contactEmail"
+                            placeholder="Business Email">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Phone</label>
+                        <input type="tel" class="form-control" [(ngModel)]="editData.contactPhone"
+                            placeholder="Business Phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" [(ngModel)]="editData.address"
+                            placeholder="Physical Address">
+                    </div>
+                    <div class="form-group">
+                        <label>Business Hours</label>
+                        <input type="text" class="form-control" [(ngModel)]="editData.businessHours"
+                            placeholder="e.g. Mon-Fri 9AM-5PM">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" (click)="closeEditModal()" [disabled]="isSavingProfile">Cancel</button>
+                <button class="btn-primary" (click)="saveProfile()" [disabled]="isSavingProfile">
+                    <i class="fa-solid fa-spinner fa-spin" *ngIf="isSavingProfile"></i>
+                    {{ isSavingProfile ? 'Saving...' : 'Save Changes' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connections List Modal -->
+    <div class="modal-overlay" *ngIf="isConnectionsModalOpen" (click)="closeConnectionsModal()">
+        <div class="modal-content glass-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>{{connectionsModalType === 'followers' ? 'Followers' : 'Following'}}</h2>
+                <button class="close-btn" (click)="closeConnectionsModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                <div *ngIf="isConnectionsLoading"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+                </div>
+                <div *ngIf="!isConnectionsLoading && connectionList.length === 0"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    No {{connectionsModalType}} found.
+                </div>
+
+                <div class="request-item" *ngFor="let conn of connectionList"
+                    style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--border-color-light); margin-bottom: 0;">
+                    <div class="user-info" style="display: flex; align-items: center; gap: 1rem; cursor: pointer;"
+                        (click)="navigateToProfile(conn.userId)">
+                        <img [src]="conn.profilePicture || 'https://ui-avatars.com/api/?name=' + conn.name"
+                            alt="Profile" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+                        <div class="details">
+                            <h4 style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">{{conn.name}}</h4>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary);">&#64;{{conn.username}}</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons-group">
+                        <!-- If viewing own Following list, show Unfollow -->
+                        <button *ngIf="isCurrentUser() && connectionsModalType === 'following'"
+                            class="btn-action-unfollow" (click)="toggleFollowInList(conn.userId)">
+                            <i class="fa-solid fa-user-minus"></i> Unfollow
+                        </button>
+
+                        <!-- If viewing own Followers list, show Remove Follower -->
+                        <button *ngIf="isCurrentUser() && connectionsModalType === 'followers'"
+                            class="btn-action-remove" (click)="removeFollower(conn.userId)">
+                            <i class="fa-solid fa-user-slash"></i> Remove
+                        </button>
+
+                        <!-- Generic Follow back / Following status for everyone else -->
+                        <ng-container *ngIf="!isCurrentUser()">
+                            <button class="btn-action-follow" *ngIf="connectionsFollowMap[conn.userId] === 'none'"
+                                (click)="toggleFollowInList(conn.userId)">
+                                <i class="fa-solid fa-plus"></i> Follow
+                            </button>
+                            <button class="btn-action-following"
+                                *ngIf="connectionsFollowMap[conn.userId] === 'following'"
+                                (click)="toggleFollowInList(conn.userId)">
+                                <i class="fa-solid fa-check"></i> Following
+                            </button>
+                            <button class="btn-action-pending" *ngIf="connectionsFollowMap[conn.userId] === 'pending'"
+                                (click)="toggleFollowInList(conn.userId)">
+                                <i class="fa-solid fa-clock"></i> Pending
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div *ngIf="shareModalOpen" class="share-modal-overlay" (click)="closeShareModal()">
+    <div class="share-modal glass-card" (click)="$event.stopPropagation()">
+        <div class="share-modal-header">
+            <h3><i class="fa-solid fa-paper-plane"></i> Send Post</h3>
+            <button class="share-modal-close" (click)="closeShareModal()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <div class="share-modal-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" [(ngModel)]="shareUserSearch" placeholder="Search people you follow..." autofocus>
+        </div>
+        <div class="share-modal-list">
+            <div *ngIf="followingUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+            </div>
+            <div *ngIf="followingUsers.length > 0 && filteredShareUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-user-xmark"></i> No users found
+            </div>
+            <div class="share-user-row" *ngFor="let user of filteredShareUsers">
+                <img [src]="user.profilePicture || 'https://ui-avatars.com/api/?name=' + user.name + '&background=random'"
+                    class="share-user-avatar" [alt]="user.name">
+                <div class="share-user-info">
+                    <span class="share-user-name">{{user.name}}</span>
+                    <span class="share-user-handle">&#64;{{user.username}}</span>
+                </div>
+                <button class="share-send-btn" [class.sent]="shareSuccessMap[user.userId]"
+                    (click)="sendPostToUser(user.userId)">
+                    <i [class]="shareSuccessMap[user.userId] ? 'fa-solid fa-check' : 'fa-solid fa-paper-plane'"></i>
+                    {{ shareSuccessMap[user.userId] ? 'Sent' : 'Send' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,236 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # ── Interaction routes (MUST come before post-service catch-all) ──
+        - id: interaction-likes
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/posts/*/like,/api/posts/*/likes,/api/posts/*/liked
+        - id: interaction-comments
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/posts/*/comments,/api/comments/**
+        - id: interaction-shares
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/posts/*/share,/api/posts/*/share/**,/api/posts/*/shares
+        - id: interaction-views
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/posts/*/view,/api/posts/*/views
+
+        # ── Connection routes (MUST come before user-service catch-all) ──
+        - id: connection-follow
+          uri: lb://connection-service
+          predicates:
+            - Path=/api/users/*/follow,/api/users/*/followers,/api/users/*/following,/api/users/*/connection-stats,/api/users/*/is-following,/api/users/*/connection
+
+        # User Service Routes
+        - id: user-service-auth
+          uri: lb://user-service
+          predicates:
+            - Path=/api/auth/**
+
+        - id: user-service-users
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userServiceCircuitBreaker
+
+        - id: user-service-settings
+          uri: lb://user-service
+          predicates:
+            - Path=/api/settings/**
+
+        - id: user-service-business
+          uri: lb://user-service
+          predicates:
+            - Path=/api/business/**
+
+        - id: user-service-admin
+          uri: lb://user-service
+          predicates:
+            - Path=/api/admin/**
+
+        # Feed Service Routes
+        - id: feed-service
+          uri: lb://feed-service
+          predicates:
+            - Path=/api/posts/feed,/api/posts/feed/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: feedServiceCircuitBreaker
+
+        # Story Routes (handled by post-service, MUST come before post-service catch-all)
+        - id: post-service-stories
+          uri: lb://post-service
+          predicates:
+            - Path=/api/stories/**
+
+        # Hashtag Routes (handled by post-service)
+        - id: post-service-hashtags
+          uri: lb://post-service
+          predicates:
+            - Path=/api/hashtags/**
+
+        # Post Service Routes
+        - id: post-service
+          uri: lb://post-service
+          predicates:
+            - Path=/api/posts/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: postServiceCircuitBreaker
+                fallbackUri: forward:/fallback/post-service
+
+        - id: post-service-media
+          uri: lb://post-service
+          predicates:
+            - Path=/api/media/**
+
+        - id: post-service-uploads
+          uri: lb://post-service
+          predicates:
+            - Path=/uploads/**
+          filters:
+            - RewritePath=/uploads/(?<segment>.*), /api/media/files/$\{segment}
+
+        # Interaction Service Routes
+        - id: interaction-service
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/interactions/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: interactionServiceCircuitBreaker
+
+        - id: interaction-service-bookmarks
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/bookmarks/**
+
+        - id: interaction-service-analytics
+          uri: lb://interaction-service
+          predicates:
+            - Path=/api/analytics/**
+
+        # Connection Service Routes
+        - id: connection-service
+          uri: lb://connection-service
+          predicates:
+            - Path=/api/connections/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: connectionServiceCircuitBreaker
+
+        # Notification Service Routes
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: notificationServiceCircuitBreaker
+
+        # Messaging Routes (handled by notification-service)
+        - id: notification-service-messages
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/messages/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: notificationServiceCircuitBreaker
+
+        - id: notification-service-ws
+          uri: lb:ws://notification-service
+          predicates:
+            - Path=/ws/**
+
+        # Search Routes (handled by user-service)
+        - id: user-service-search
+          uri: lb://user-service
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userServiceCircuitBreaker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Resilience4j Configuration
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10000
+        permitted-number-of-calls-in-half-open-state: 5
+        register-health-indicator: true
+    instances:
+      userServiceCircuitBreaker:
+        base-config: default
+      postServiceCircuitBreaker:
+        base-config: default
+      feedServiceCircuitBreaker:
+        base-config: default
+      interactionServiceCircuitBreaker:
+        base-config: default
+      connectionServiceCircuitBreaker:
+        base-config: default
+      notificationServiceCircuitBreaker:
+        base-config: default
+
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 10s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

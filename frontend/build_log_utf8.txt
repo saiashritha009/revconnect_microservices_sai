@@ -1,0 +1,250 @@
+﻿[33mΓ¥»[39m Building...
+[32mΓ£ö[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m              [2m | [22m [1mRaw size[22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m             [2m | [22m [36m14.85 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m               [2m | [22m  [36m4.49 kB[39m[2m | [22m
+[32mchunk-CZJLB7T5.js[39m  [2m | [22m[2m-[22m                  [2m | [22m  [36m1.08 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m      [2m | [22m [1m20.42 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m              [2m | [22m [1mRaw size[22m
+[32mchunk-6EQD6BYA.js[39m  [2m | [22m[2mprofile-page[22m       [2m | [22m[36m325.19 kB[39m[2m | [22m
+[32mchunk-AC6Q7SSA.js[39m  [2m | [22m[2mfeed-page[22m          [2m | [22m[36m297.54 kB[39m[2m | [22m
+[32mchunk-MDBDWEKG.js[39m  [2m | [22m[2msettings-page[22m      [2m | [22m[36m130.79 kB[39m[2m | [22m
+[32mchunk-2ZGEZ3C3.js[39m  [2m | [22m[2mexplore-page[22m       [2m | [22m [36m95.24 kB[39m[2m | [22m
+[32mchunk-FPVTDG5S.js[39m  [2m | [22m[2m-[22m                  [2m | [22m [36m88.63 kB[39m[2m | [22m
+[32mchunk-E3HCPJNK.js[39m  [2m | [22m[2mregister[22m           [2m | [22m [36m81.75 kB[39m[2m | [22m
+[32mchunk-6QBV5TTM.js[39m  [2m | [22m[2mbookmarks-page[22m     [2m | [22m [36m75.50 kB[39m[2m | [22m
+[32mchunk-C5U3MSUL.js[39m  [2m | [22m[2manalytics-dashboard[22m[2m | [22m [36m73.86 kB[39m[2m | [22m
+[32mchunk-DAEEZHIK.js[39m  [2m | [22m[2mmessages-page[22m      [2m | [22m [36m54.05 kB[39m[2m | [22m
+[32mchunk-ROF7JYOF.js[39m  [2m | [22m[2mlanding-page[22m       [2m | [22m [36m49.35 kB[39m[2m | [22m
+[32mchunk-SFOBMPNG.js[39m  [2m | [22m[2mnotifications-page[22m [2m | [22m [36m34.73 kB[39m[2m | [22m
+[32mchunk-IUQVCOCS.js[39m  [2m | [22m[2mlogin-component[22m    [2m | [22m [36m28.35 kB[39m[2m | [22m
+[32mchunk-RGPXFH2W.js[39m  [2m | [22m[2mreset-password[22m     [2m | [22m [36m27.29 kB[39m[2m | [22m
+[32mchunk-JCIYLK5L.js[39m  [2m | [22m[2mforgot-password[22m    [2m | [22m [36m20.94 kB[39m[2m | [22m
+[32mchunk-LXKL5CSK.js[39m  [2m | [22m[2m-[22m                  [2m | [22m  [36m6.56 kB[39m[2m | [22m
+[2m...and 6 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+Application bundle generation complete. [9.696 seconds] - 2026-03-14T09:47:01.601Z
+
+node.exe : [1m[33m[33mΓû▓ 
+[43;33m[[43;30mWARNING[43;33m][0m [1mNG8107: 
+NG8107: The left side of this optional chain operation 
+does not include 'null' or 'undefined' in its type, 
+therefore the '?.' operator can be replaced with the '.' 
+operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([1m[33m[ 
+   33mΓ...r-compiler][0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+    src/app/features/explore/explore-page/explore-page.ht
+ml:98:85:
+[37m      98 Γöé ... <div class="post-media-container" 
+*ngIf="post.mediaUrls?.[32mlength[37m">
+         Γò╡                                             
+                 [32m~~~~~~[0m
+
+  Warning occurs in the template of component 
+ExplorePage.
+
+    src/app/features/explore/explore-page/explore-page.ts
+:17:17:
+[37m      17 Γöé     templateUrl: 
+[32m'./explore-page.html'[37m,
+         Γò╡                  
+[32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    
+src/app/features/feed/feed-page/feed-page.html:251:81:
+[37m      251 Γöé ...                 <img 
+*ngIf="post.originalPost.mediaUrls?.[32mlength[37m"
+          Γò╡                                            
+                  [32m~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 Γöé   templateUrl: 
+[32m'./feed-page.html'[37m,
+         Γò╡                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    
+src/app/features/feed/feed-page/feed-page.html:455:70:
+[37m      455 Γöé 
+...="value">{{(analyticsOverview?.[32mtotalViews[37m 
+|| 0) | number}}</span>
+          Γò╡                                   
+[32m~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 Γöé   templateUrl: 
+[32m'./feed-page.html'[37m,
+         Γò╡                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    
+src/app/features/feed/feed-page/feed-page.html:461:70:
+[37m      461 Γöé 
+...="value">{{(analyticsOverview?.[32mtotalLikes[37m 
+|| 0) | number}}</span>
+          Γò╡                                   
+[32m~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 Γöé   templateUrl: 
+[32m'./feed-page.html'[37m,
+         Γò╡                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    
+src/app/features/feed/feed-page/feed-page.html:467:70:
+[37m      467 Γöé 
+..."value">{{(analyticsOverview?.[32mtotalShares[37m 
+|| 0) | number}}</span>
+          Γò╡                                  
+[32m~~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 Γöé   templateUrl: 
+[32m'./feed-page.html'[37m,
+         Γò╡                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    
+src/app/features/feed/feed-page/feed-page.html:473:70:
+[37m      473 Γöé 
+...alue">{{(analyticsOverview?.[32mtotalComments[37m 
+|| 0) | number}}</span>
+          Γò╡                                
+[32m~~~~~~~~~~~~~[0m
+
+  Warning occurs in the template of component FeedPage.
+
+    src/app/features/feed/feed-page/feed-page.ts:24:15:
+[37m      24 Γöé   templateUrl: 
+[32m'./feed-page.html'[37m,
+         Γò╡                [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8113: BottomNav is not used within the template of 
+FeedPage[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/feed/feed-page/feed-page.ts:23:105:
+[37m      23 Γöé ...debar, FormsModule, StoriesFeed, 
+HashtagTextComponent, [32mBottomNav[37m],
+         Γò╡                                             
+              [32m~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8113: BottomNav is not used within the template of 
+NotificationsPage[0m [1m[35m[plugin 
+angular-compiler][0m
+
+    src/app/features/notifications/notifications-page/not
+ifications-page.ts:15:57:
+[37m      15 Γöé   imports: [CommonModule, Navbar, 
+Sidebar, RouterModule, [32mBottomNav[37m],
+         Γò╡                                             
+             [32m~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8113: BottomNav is not used within the template of 
+ProfilePage[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/features/profile/profile-page/profile-page.ts
+:22:94:
+[37m      22 Γöé ..., RouterModule, Navbar, Sidebar, 
+HashtagTextComponent, [32mBottomNav[37m],
+         Γò╡                                             
+              [32m~~~~~~~~~[0m
+
+
+[33mΓû▓ [43;33m[[43;30mWARNING[43;33m][0m 
+[1mNG8107: NG8107: The left side of this optional chain 
+operation does not include 'null' or 'undefined' in its 
+type, therefore the '?.' operator can be replaced with 
+the '.' operator. Find more at 
+https://v21.angular.dev/extended-diagnostics/NG8107[0m 
+[1m[35m[plugin angular-compiler][0m
+
+    src/app/features/stories/stories-feed/stories-feed.ht
+ml:142:66:
+[37m      142 Γöé ...]="activeStoryToView.mediaUrl?.[32
+msplit[37m('.')?.pop()?.toLowerCase()">
+          Γò╡                                   
+[32m~~~~~[0m
+
+  Warning occurs in the template of component 
+StoriesFeed.
+
+    src/app/features/stories/stories-feed/stories-feed.ts
+:13:15:
+[37m      13 Γöé   templateUrl: 
+[32m'./stories-feed.html'[37m,
+         Γò╡                
+[32m~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32mΓ₧£[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4201[22m/[39m
+[2m[32m  Γ₧£[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m

@@ -1,0 +1,301 @@
+<div class="auth-container">
+    <svg class="auth-bg-svg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+        <line x1="120" y1="100" x2="300" y2="200" stroke="rgba(139,92,246,0.15)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="300" y1="200" x2="500" y2="120" stroke="rgba(59,130,246,0.12)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="300" y1="200" x2="250" y2="400" stroke="rgba(6,182,212,0.12)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="500" y1="120" x2="680" y2="250" stroke="rgba(139,92,246,0.1)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="680" y1="250" x2="600" y2="450" stroke="rgba(59,130,246,0.1)" stroke-width="1.5" stroke-dasharray="6 4" class="conn-line"/>
+        <line x1="250" y1="400" x2="600" y2="450" stroke="rgba(6,182,212,0.08)" stroke-width="1" stroke-dasharray="6 4" class="conn-line"/>
+        <circle cx="120" cy="100" r="18" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.25)" stroke-width="1.5" class="node n1"/>
+        <circle cx="120" cy="100" r="7" fill="rgba(139,92,246,0.3)"/>
+        <circle cx="300" cy="200" r="24" fill="rgba(59,130,246,0.10)" stroke="rgba(59,130,246,0.2)" stroke-width="1.5" class="node n2"/>
+        <circle cx="300" cy="200" r="9" fill="rgba(59,130,246,0.3)"/>
+        <circle cx="500" cy="120" r="20" fill="rgba(6,182,212,0.10)" stroke="rgba(6,182,212,0.2)" stroke-width="1.5" class="node n3"/>
+        <circle cx="500" cy="120" r="8" fill="rgba(6,182,212,0.3)"/>
+        <circle cx="680" cy="250" r="16" fill="rgba(139,92,246,0.10)" stroke="rgba(139,92,246,0.2)" stroke-width="1.5" class="node n4"/>
+        <circle cx="680" cy="250" r="6" fill="rgba(139,92,246,0.25)"/>
+        <circle cx="250" cy="400" r="22" fill="rgba(59,130,246,0.08)" stroke="rgba(59,130,246,0.15)" stroke-width="1.5" class="node n5"/>
+        <circle cx="250" cy="400" r="8" fill="rgba(59,130,246,0.25)"/>
+        <circle cx="600" cy="450" r="15" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.15)" stroke-width="1.5" class="node n6"/>
+        <circle cx="600" cy="450" r="6" fill="rgba(6,182,212,0.2)"/>
+        <circle cx="300" cy="200" r="24" fill="none" stroke="rgba(59,130,246,0.15)" stroke-width="1" class="pulse"/>
+        <circle cx="500" cy="120" r="20" fill="none" stroke="rgba(6,182,212,0.12)" stroke-width="1" class="pulse p2"/>
+    </svg>
+    <div class="auth-card glass-card">
+        <div class="auth-header">
+            <div class="logo-circle">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1>Create Account</h1>
+            <p>Join RevConnect and start networking</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-alert">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            {{ errorMessage }}
+        </div>
+
+        <div *ngIf="step === 'REGISTER'">
+            <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+
+                <!-- Account Type Selection -->
+                <div class="type-selector">
+                    <label class="type-option" [class.selected]="details.userType === 'PERSONAL'">
+                        <input type="radio" name="userType" value="PERSONAL" [(ngModel)]="details.userType"
+                            (change)="onTypeChange()" class="hidden-radio">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Personal</span>
+                    </label>
+
+                    <label class="type-option" [class.selected]="details.userType === 'CREATOR'">
+                        <input type="radio" name="userType" value="CREATOR" [(ngModel)]="details.userType"
+                            (change)="onTypeChange()" class="hidden-radio">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Creator</span>
+                    </label>
+
+                    <label class="type-option" [class.selected]="details.userType === 'BUSINESS'">
+                        <input type="radio" name="userType" value="BUSINESS" [(ngModel)]="details.userType"
+                            (change)="onTypeChange()" class="hidden-radio">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Business</span>
+                    </label>
+                </div>
+
+                <!-- Identity Selection Label -->
+                <div class="input-group">
+                    <label for="name" [ngSwitch]="details.userType">
+                        <span *ngSwitchCase="'PERSONAL'">Full Name <span class="required">*</span></span>
+                        <span *ngSwitchCase="'CREATOR'">Creator / Brand Name <span class="required">*</span></span>
+                        <span *ngSwitchCase="'BUSINESS'">Business / Company Name <span class="required">*</span></span>
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid icon" [ngClass]="{
+                        'fa-id-card': details.userType === 'PERSONAL',
+                        'fa-star': details.userType === 'CREATOR',
+                        'fa-building': details.userType === 'BUSINESS'
+                    }"></i>
+                        <input type="text" id="name" name="name" [(ngModel)]="details.name" required minlength="3"
+                            [placeholder]="details.userType === 'PERSONAL' ? 'Enter your full name' : 'Enter your professional name'">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <!-- Username -->
+                    <div class="input-group half-width">
+                        <label for="username">Username <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-at icon"></i>
+                            <input type="text" id="username" name="username" [(ngModel)]="details.username" required
+                                minlength="3" placeholder="Username">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group half-width">
+                        <label for="email">Account Email <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-envelope icon"></i>
+                            <input type="email" id="email" name="email" [(ngModel)]="details.email"
+                                #emailModel="ngModel" required [pattern]="emailPattern" placeholder="hello@example.com">
+                        </div>
+                        <small class="field-error"
+                            *ngIf="emailModel.invalid && (emailModel.touched || registerForm.submitted)">
+                            Invalid email
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Optional Creator Fields -->
+                <div class="business-fields" *ngIf="details.userType === 'CREATOR'">
+                    <div class="divider">
+                        <span>Creator Portfolio Details</span>
+                    </div>
+                    <p class="subtype-help">Setup your creator identity to start building your brand and showcase your
+                        talent.</p>
+
+                    <div class="input-group">
+                        <label>Creative Category <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-wand-magic-sparkles icon"></i>
+                            <select name="creatorCategory" [(ngModel)]="details.category" class="form-select"
+                                [required]="details.userType === 'CREATOR'">
+                                <option value="" disabled selected>Select Creative Category</option>
+                                <option value="ENTERTAINMENT">Digital Creator</option>
+                                <option value="FASHION">Artist / Designer</option>
+                                <option value="SERVICES">Musician / Audio</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optional Business Fields -->
+                <div class="business-fields" *ngIf="details.userType === 'BUSINESS'">
+                    <div class="divider">
+                        <span>Corporate Profile Setup</span>
+                    </div>
+                    <p class="subtype-help">Register your business to connect with customers and share your professional
+                        updates.</p>
+
+                    <div class="input-group">
+                        <label>Business Category <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-building icon"></i>
+                            <select name="businessCategory" [(ngModel)]="details.category" class="form-select"
+                                [required]="details.userType === 'BUSINESS'">
+                                <option value="" disabled selected>Select Industry</option>
+                                <option value="TECHNOLOGY">Technology</option>
+                                <option value="RETAIL">Retail / E-commerce</option>
+                                <option value="FOOD_BEVERAGE">Food & Beverage</option>
+                                <option value="FINANCE">Finance / Banking</option>
+                                <option value="HEALTH_FITNESS">Health & Wellness</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="OTHER">Other Industry</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Headquarters Address <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-location-dot icon"></i>
+                            <input type="text" name="address" [(ngModel)]="details.address"
+                                [required]="details.userType === 'BUSINESS'" placeholder="123 Corporate Way, Suite 100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Universal Professional Details (Shared for both roles) -->
+                <div *ngIf="details.userType === 'BUSINESS' || details.userType === 'CREATOR'">
+                    <div class="divider">
+                        <span>Professional Contact & Media</span>
+                    </div>
+
+                    <div class="input-row">
+                        <!-- Contact Email -->
+                        <div class="input-group half-width">
+                            <label for="contactEmail">Public Contact Email <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-envelope icon"></i>
+                                <input type="email" id="contactEmail" name="contactEmail"
+                                    [(ngModel)]="details.contactEmail" required placeholder="Public Brand Email">
+                            </div>
+                        </div>
+
+                        <!-- Contact Phone -->
+                        <div class="input-group half-width">
+                            <label for="contactPhone">Public Phone (Optional)</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-phone icon"></i>
+                                <input type="tel" id="contactPhone" name="contactPhone"
+                                    [(ngModel)]="details.contactPhone" placeholder="Business Phone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Link Improvement as requested in Image 1 -->
+                    <div class="media-links-grid">
+                        <div class="input-group">
+                            <label for="logoUrl">Brand Logo URL</label>
+                            <div class="input-wrapper premium-input">
+                                <i class="fa-solid fa-camera-retro icon"></i>
+                                <input type="url" id="logoUrl" name="logoUrl" [(ngModel)]="details.logoUrl"
+                                    placeholder="https://image-host.com/logo.png">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="coverImageUrl">Profile Cover Image URL</label>
+                            <div class="input-wrapper premium-input">
+                                <i class="fa-solid fa-panorama icon"></i>
+                                <input type="url" id="coverImageUrl" name="coverImageUrl"
+                                    [(ngModel)]="details.coverImageUrl" placeholder="https://image-host.com/cover.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="input-group">
+                    <label for="password">Password <span class="required">*</span></label>
+                    <div class="input-wrapper" style="position: relative;">
+                        <i class="fa-solid fa-lock icon"></i>
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                            [(ngModel)]="details.password" (input)="checkPasswordStrength()" required minlength="6"
+                            placeholder="••••••••" style="padding-right: 3rem;">
+                        <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"
+                            (click)="showPassword = !showPassword"
+                            style="position: absolute; right: 1.25rem; top: 35%; color: var(--text-muted); cursor: pointer; padding: 5px; z-index: 5;"></i>
+                    </div>
+
+                    <!-- Password Strength Meter -->
+                    <div class="strength-meter-container" *ngIf="details.password">
+                        <div class="strength-bar-bg">
+                            <div class="strength-bar-fill" [style.width.%]="passwordStrength" [ngClass]="{
+                           'weak': passwordStrength === 25,
+                           'fair': passwordStrength === 50,
+                           'good': passwordStrength === 75,
+                           'strong': passwordStrength === 100
+                         }">
+                            </div>
+                        </div>
+                        <span class="strength-text" [ngSwitch]="passwordStrength">
+                            <small *ngSwitchCase="25">Weak (Minimum 6 characters)</small>
+                            <small *ngSwitchCase="50">Fair (Add capital letters)</small>
+                            <small *ngSwitchCase="75">Good (Add numbers)</small>
+                            <small *ngSwitchCase="100">Strong (Perfect!)</small>
+                        </span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary auth-btn" [disabled]="isLoading">
+                    <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+                    <span>{{ isLoading ? 'Initializing Profile...' : 'Create My Account' }}</span>
+                </button>
+
+                <div class="terms-text">
+                    By signing up, you agree to our <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="/login">Sign in</a></p>
+            </div>
+        </div>
+
+        <div *ngIf="step === 'VERIFY'">
+            <div class="verify-alert"
+                style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid #3b82f6; padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 1.25rem;">
+                <p style="margin: 0; color: var(--text-primary); line-height: 1.5; font-size: 0.82rem;">We've sent a 6-digit code
+                    to <strong>{{ details.email }}</strong>. Enter it below to verify.</p>
+            </div>
+
+            <form (ngSubmit)="onVerifySubmit(verifyForm)" #verifyForm="ngForm">
+                <div class="input-group">
+                    <label for="otp">Verification Code <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-key icon"></i>
+                        <input type="text" id="otp" name="otp" [(ngModel)]="otp" required minlength="6" maxlength="6"
+                            pattern="[0-9]*" placeholder="000000"
+                            style="letter-spacing: 0.5rem; text-align: center; font-size: 1.25rem; font-weight: bold; padding-left: 2.5rem;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary auth-btn" [disabled]="isVerifying || otp.length !== 6">
+                    <i *ngIf="isVerifying" class="fa-solid fa-circle-notch fa-spin"></i>
+                    <span>{{ isVerifying ? 'Verifying...' : 'Verify Email' }}</span>
+                </button>
+
+                <div class="resend-container" style="margin-top: 0.75rem; text-align: center;">
+                    <p style="font-size: 0.78rem; margin-bottom: 0.5rem; color: var(--text-muted);">Didn't receive the code?</p>
+                    <button type="button" (click)="resendOtp()" [disabled]="isResending"
+                        style="background: transparent; border: 1.5px solid var(--border-color); color: var(--accent-primary); padding: 0.45rem 1rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-size: 0.82rem; font-weight: 600;">
+                        <i *ngIf="isResending" class="fa-solid fa-circle-notch fa-spin" style="margin-right: 5px;"></i>
+                        <span>{{ isResending ? 'Sending...' : 'Resend Code' }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

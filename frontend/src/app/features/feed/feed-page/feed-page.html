@@ -1,0 +1,589 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </div>
+
+        <!-- Middle Feed -->
+        <main class="feed-column">
+
+            <!-- STORIES FEED COMPONENT -->
+            <app-stories-feed></app-stories-feed>
+
+            <!-- Create Post Section -->
+            <div class="card glass-card create-post-card mb-4 mt-3">
+                <div class="create-header">
+                    <div class="user-avatar-wrap">
+                        <img [src]="currentUser?.profilePicture || 'https://ui-avatars.com/api/?name=' + (currentUser?.username || 'User') + '&background=3b82f6&color=fff'"
+                            [alt]="currentUser?.username || 'User'">
+                    </div>
+                    <input type="text" [(ngModel)]="newPostContent" placeholder="What's happening in your network?"
+                        (keyup.enter)="createPost()">
+                </div>
+                <div class="create-actions">
+                    <div class="action-icons">
+                        <input type="file" #fileInput style="display: none" accept="image/*,video/*"
+                            (change)="onFileSelected($event)">
+                        <button class="icon-btn" (click)="triggerFileInput(fileInput)"><i
+                                class="fa-regular fa-image"></i> Media</button>
+                        <button class="icon-btn" [class.active]="showScheduleTool" (click)="toggleScheduleTool()">
+                            <i class="fa-regular fa-calendar-check"></i> Schedule
+                        </button>
+                        <button *ngIf="currentUser?.userType === 'BUSINESS' || currentUser?.userType === 'CREATOR'"
+                            class="icon-btn" [class.active]="showBusinessTools" (click)="toggleBusinessTools()">
+                            <i class="fa-solid fa-bullhorn"></i> Call To Action
+                        </button>
+                    </div>
+                    <button class="btn-primary" (click)="createPost()"
+                        [disabled]="(!newPostContent.trim() && !selectedMediaFile) || isUploadingMedia">
+                        <i *ngIf="isUploadingMedia" class="fa-solid fa-circle-notch fa-spin"></i>
+                        Post
+                    </button>
+                </div>
+
+                <!-- Schedule Tool Form -->
+                <div class="schedule-tool-form" *ngIf="showScheduleTool">
+                    <h5><i class="fa-regular fa-calendar-check" style="color: var(--accent-primary);"></i> Schedule Post
+                    </h5>
+
+                    <div class="schedule-inputs-row">
+                        <!-- Date -->
+                        <div class="schedule-pill glass-card date-pill">
+                            <i class="fa-regular fa-calendar-alt prefix-icon"></i>
+                            <input type="date" class="borderless-input" [(ngModel)]="scheduleDateOnlyInput"
+                                [min]="minDateString" max="9999-12-31">
+                        </div>
+
+                        <!-- Time -->
+                        <div class="schedule-pill glass-card time-pill">
+                            <i class="fa-regular fa-clock clock-icon"></i>
+                            <input type="text" class="borderless-input time-number-input"
+                                [(ngModel)]="scheduleHourInput" maxlength="2" (keyup)="focusNextIfFull(scheduleHourInput, minuteInput)" (blur)="formatScheduleTime()"
+                                placeholder="00">
+                            <span class="time-colon">:</span>
+                            <input #minuteInput type="text" class="borderless-input time-number-input"
+                                [(ngModel)]="scheduleMinuteInput" maxlength="2" (blur)="formatScheduleTime()"
+                                placeholder="00">
+
+                            <select class="borderless-select ampm-select" [(ngModel)]="scheduleAmPmInput">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Media Preview Section -->
+                <div class="media-preview" *ngIf="mediaPreviewUrl" style="padding: 1rem 1.5rem; position: relative;">
+                    <!-- Image Preview -->
+                    <div *ngIf="selectedMediaFile?.type?.startsWith('image/')">
+                        <img [src]="mediaPreviewUrl" alt="Selected media preview"
+                            style="max-width: 100%; border-radius: 8px;">
+                    </div>
+                    <!-- Video Preview -->
+                    <div *ngIf="selectedMediaFile?.type?.startsWith('video/')">
+                        <video [src]="mediaPreviewUrl" controls class="media-preview-video"></video>
+                    </div>
+
+                    <button class="icon-btn"
+                        style="position: absolute; top: 1.5rem; right: 2rem; background: var(--shadow-glass); color: white; border-radius: 50%; padding: 0.5rem;"
+                        (click)="removeSelectedMedia()">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Business Tools Form -->
+                <div class="business-tools-form" *ngIf="showBusinessTools">
+                    <h5><i class="fa-solid fa-list-check"></i> Post Category</h5>
+                    <div class="cta-input-group mb-3">
+                        <div class="input-icon-wrap select-wrap" style="flex: 1;">
+                            <i class="fa-solid fa-bullhorn prefix-icon"></i>
+                            <select [(ngModel)]="postCategoryInput">
+                                <option value="STANDARD">Standard Post</option>
+                                <option value="ANNOUNCEMENT">Announcement</option>
+                                <option value="UPDATE">Product/Brand Update</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                    </div>
+
+                    <h5><i class="fa-solid fa-link"></i> Call To Action</h5>
+                    <div class="cta-input-group">
+                        <div class="input-icon-wrap select-wrap">
+                            <i class="fa-solid fa-tag prefix-icon"></i>
+                            <select [(ngModel)]="ctaLabelInput">
+                                <option value="">Select Action (Optional)</option>
+                                <option value="Shop Now">Shop Now</option>
+                                <option value="Learn More">Learn More</option>
+                                <option value="Sign Up">Sign Up</option>
+                                <option value="Contact Us">Contact Us</option>
+                                <option value="Download">Download</option>
+                                <option value="Subscribe">Subscribe</option>
+                                <option value="Book Now">Book Now</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                        </div>
+                        <div class="input-icon-wrap url-input-wrap">
+                            <i class="fa-solid fa-link prefix-icon"></i>
+                            <input type="text" [(ngModel)]="ctaUrlInput"
+                                placeholder="Link URL (e.g. https://yourstore.com)">
+                        </div>
+                    </div>
+
+                    <div *ngIf="isCreator()">
+                        <h5 class="mt-3 disclosure-header"><i class="fa-solid fa-handshake"></i> Partnership Disclosure
+                        </h5>
+                        <div class="promo-input-group">
+                            <label class="promo-checkbox-label">
+                                <input type="checkbox" [(ngModel)]="isPromotionalInput">
+                                <span>Mark as Paid Partnership</span>
+                            </label>
+                            <div class="input-icon-wrap mt-2" *ngIf="isPromotionalInput">
+                                <i class="fa-solid fa-building prefix-icon"></i>
+                                <input type="text" [(ngModel)]="partnerNameInput"
+                                    placeholder="Brand Partner (e.g. Nike, Apple)">
+                            </div>
+                        </div>
+
+                        <h5 class="mt-3 disclosure-header"><i class="fa-solid fa-cart-shopping"></i> Product Tagging
+                        </h5>
+                        <div class="promo-input-group">
+                            <div class="input-icon-wrap">
+                                <i class="fa-solid fa-tags prefix-icon"></i>
+                                <input type="text" [(ngModel)]="productTagsInput"
+                                    placeholder="Product Tags (comma separated, e.g. Shoes, Watch)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed Stream -->
+            <div class="feed-stream">
+                <div *ngIf="isLoading" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Loading network feed...
+                </div>
+
+                <div *ngIf="!isLoading && posts.length === 0" class="glass-card"
+                    style="text-align: center; color: var(--text-secondary); padding: 2rem;">
+                    No posts yet. Be the first to post!
+                </div>
+
+                @for (post of posts; track post.id) {
+                <div class="post-card glass-card" [class.dropdown-open]="postOptionsOpenMap[post.id]">
+
+                    <div class="post-header">
+                        <div class="author-info">
+                            <img [src]="post.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + post.authorName + '&background=random'"
+                                alt="{{post.authorName}}">
+                            <div class="meta">
+                                <h4>{{post.authorName}}</h4>
+                                <span>&#64;{{post.authorUsername}} • {{getRelativeTime(post.createdAt)}}</span>
+                                <div class="partnership-badge" *ngIf="post.isPromotional">
+                                    <i class="fa-solid fa-handshake"></i> Paid Partnership
+                                    <span *ngIf="post.partnerName"
+                                        style="color: inherit; font-size: inherit; font-weight: inherit; margin-left: 3px;">
+                                        with <strong>{{post.partnerName}}</strong>
+                                    </span>
+                                </div>
+                                <div class="partnership-badge announcement-badge"
+                                    *ngIf="post.postType === 'ANNOUNCEMENT'">
+                                    <i class="fa-solid fa-bullhorn"></i> Official Announcement
+                                </div>
+                                <div class="partnership-badge update-badge" *ngIf="post.postType === 'UPDATE'">
+                                    <i class="fa-solid fa-rocket"></i> Brand Update
+                                </div>
+                                <div class="product-tags-list" *ngIf="post.productTags && post.productTags.length > 0">
+                                    <span class="product-tag" *ngFor="let tag of post.productTags">
+                                        <i class="fa-solid fa-tag"></i> {{tag}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="options-container" *ngIf="isPostAuthor(post)">
+                            <button class="options-btn" (click)="togglePostOptions(post.id)">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <div class="options-dropdown glass-card" *ngIf="postOptionsOpenMap[post.id]">
+                                <button (click)="togglePin(post.id)">
+                                    <i class="fa-solid fa-thumbtack"></i> {{post.pinned ? 'Unpin' : 'Pin'}}
+                                </button>
+                                <button (click)="editPost(post)">
+                                    <i class="fa-solid fa-pen"></i> Edit Post
+                                </button>
+                                <button class="delete-opt" (click)="deletePost(post.id)">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-content">
+                        <!-- Edit Mode -->
+                        <div *ngIf="editingPostId === post.id" class="edit-mode">
+                            <textarea [(ngModel)]="editPostContent" class="form-control mb-2"></textarea>
+                            <div class="edit-actions">
+                                <button class="btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+                                <button class="btn-primary btn-sm" (click)="savePostEdit(post.id)">Save</button>
+                            </div>
+                        </div>
+                        <!-- View Mode -->
+                        <div *ngIf="editingPostId !== post.id">
+                            <app-hashtag-text [text]="post.content"></app-hashtag-text>
+
+                            <!-- Reposted Content -->
+                            <div *ngIf="post.postType === 'REPOST' && post.originalPost" class="repost-embed mt-3">
+                                <div class="repost-card glass-card">
+                                    <div class="repost-header">
+                                        <img [src]="post.originalPost.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + post.originalPost.authorName + '&background=random'"
+                                            class="repost-avatar">
+                                        <div class="repost-meta">
+                                            <strong>{{post.originalPost.authorName}}</strong>
+                                            <span>&#64;{{post.originalPost.authorUsername}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="repost-body">
+                                        <p>{{post.originalPost.content}}</p>
+                                        <img *ngIf="post.originalPost.mediaUrls?.length"
+                                            [src]="post.originalPost.mediaUrls[0]" class="repost-image">
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (post.postType === 'VIDEO' || (post.mediaUrls && post.mediaUrls.length > 0 &&
+                            (post.mediaUrls[0].includes('.mp4') || post.mediaUrls[0].includes('.webm')))) {
+                            <video [src]="post.mediaUrls[0]" controls class="post-video"></video>
+                            } @else if (post.mediaUrls && post.mediaUrls.length > 0 && post.postType !== 'REPOST') {
+                            <a [routerLink]="['/post', post.id]">
+                                <img [src]="post.mediaUrls[0]" alt="Post attachment" class="post-image">
+                            </a>
+                            }
+
+                            <!-- Business Call To Action -->
+                            <div class="post-cta" *ngIf="post.ctaLabel && post.ctaUrl">
+                                <a [href]="post.ctaUrl" target="_blank" class="btn-primary post-cta-link">
+                                    {{post.ctaLabel}} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-actions">
+                        <!-- Like Button -->
+                        <button class="interaction-btn count-btn" [class.liked]="likedMap[post.id]"
+                            (click)="toggleLike(post.id)">
+                            <i [class]="likedMap[post.id] ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                            <span>{{post.likeCount}}</span>
+                        </button>
+
+                        <!-- Comment Button -->
+                        <button class="interaction-btn count-btn" [class.active]="commentOpenMap[post.id]"
+                            (click)="toggleComments(post.id)">
+                            <i class="fa-regular fa-comment"></i>
+                            <span>{{post.commentCount}}</span>
+                        </button>
+
+                        <!-- Share Button -->
+                        <button class="interaction-btn count-btn" (click)="openShareModal(post.id)">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            <span>{{post.shareCount}}</span>
+                        </button>
+
+                        <button class="interaction-btn right-align" (click)="toggleBookmark(post.id)"
+                            [title]="bookmarkedMap[post.id] ? 'Remove bookmark' : 'Bookmark'">
+                            <i class="fa-solid fa-bookmark" *ngIf="bookmarkedMap[post.id]" style="color: #3b82f6;"></i>
+                            <i class="fa-regular fa-bookmark" *ngIf="!bookmarkedMap[post.id]"></i>
+                        </button>
+                    </div>
+
+                    <!-- Comment Section -->
+                    <div class="comment-section" *ngIf="commentOpenMap[post.id]">
+                        <div class="comment-input-row">
+                            <input type="text" class="comment-input" placeholder="Write a comment..."
+                                [(ngModel)]="newCommentMap[post.id]" (keyup.enter)="submitComment(post.id)">
+                            <button class="btn-primary comment-send-btn" (click)="submitComment(post.id)"
+                                [disabled]="!newCommentMap[post.id]?.trim()">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
+
+                        <div *ngIf="commentLoadingMap[post.id]" class="comments-loading">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i> Loading comments...
+                        </div>
+
+                        <div class="comments-list" *ngIf="!commentLoadingMap[post.id]">
+                            <div class="comment-item" *ngFor="let comment of commentsMap[post.id]">
+                                <img [src]="comment.profilePicture || 'https://ui-avatars.com/api/?name=' + comment.name + '&background=random'"
+                                    alt="{{comment.name}}" class="comment-avatar">
+                                <div class="comment-body">
+                                    <div class="comment-header-row">
+                                        <div class="comment-meta">
+                                            <strong>{{comment.name}}</strong>
+                                            <span>&#64;{{comment.username}} •
+                                                {{getRelativeTime(comment.createdAt)}}</span>
+                                        </div>
+                                        <div class="comment-options"
+                                            *ngIf="canEditComment(comment) || canDeleteComment(comment, post)">
+                                            <button class="options-btn" (click)="toggleCommentOptions(comment.id)">
+                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                            </button>
+                                            <div class="options-dropdown glass-card"
+                                                *ngIf="commentOptionsOpenMap[comment.id]">
+                                                <button *ngIf="canEditComment(comment)"
+                                                    (click)="editComment(comment, post.id); toggleCommentOptions(comment.id)">
+                                                    <i class="fa-solid fa-pen"></i> Edit
+                                                </button>
+                                                <button class="delete-opt" *ngIf="canDeleteComment(comment, post)"
+                                                    (click)="deleteComment(comment.id, post.id); toggleCommentOptions(comment.id)">
+                                                    <i class="fa-solid fa-trash"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Comment Edit Mode -->
+                                    <div *ngIf="editingCommentId === comment.id" class="comment-edit">
+                                        <input type="text" [(ngModel)]="editCommentContent"
+                                            class="form-control form-control-sm">
+                                        <div class="mt-1">
+                                            <button class="btn-primary btn-xs"
+                                                (click)="saveCommentEdit(comment.id, post.id)">Save</button>
+                                            <button class="btn-secondary btn-xs ml-1"
+                                                (click)="cancelCommentEdit()">Cancel</button>
+                                        </div>
+                                    </div>
+                                    <!-- Comment View Mode -->
+                                    <p *ngIf="editingCommentId !== comment.id">{{comment.content}}</p>
+
+                                    <!-- Comment Interactions (Instagram Style) -->
+                                    <div class="comment-interactions">
+                                        <button class="comment-interact-btn"
+                                            [class.active]="comment.isLikedByCurrentUser"
+                                            (click)="toggleCommentLike(comment.id, post.id)">
+                                            <i
+                                                [class]="comment.isLikedByCurrentUser ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                                            <span>{{comment.likeCount > 0 ? comment.likeCount : ''}}</span>
+                                        </button>
+                                        <button class="comment-interact-btn reply-btn"
+                                            (click)="toggleReplies(comment.id)">
+                                            Reply
+                                        </button>
+                                        <span class="comment-time-mini">{{getRelativeTime(comment.createdAt)}}</span>
+                                    </div>
+
+                                    <!-- Replies Section -->
+                                    <div class="replies-wrapper" *ngIf="commentReplyOpenMap[comment.id]">
+                                        <div class="replies-list">
+                                            <div class="reply-item" *ngFor="let reply of repliesMap[comment.id]">
+                                                <img [src]="reply.profilePicture || 'https://ui-avatars.com/api/?name=' + reply.name + '&background=random'"
+                                                    class="reply-avatar">
+                                                <div class="reply-body">
+                                                    <div class="comment-header-row">
+                                                        <div class="comment-meta">
+                                                            <strong>{{reply.name}}</strong>
+                                                            <span>&#64;{{reply.username}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <p>{{reply.content}}</p>
+                                                    <div class="comment-interactions">
+                                                        <button class="comment-interact-btn"
+                                                            [class.active]="reply.isLikedByCurrentUser"
+                                                            (click)="toggleCommentLike(reply.id, post.id)">
+                                                            <i
+                                                                [class]="reply.isLikedByCurrentUser ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                                                            <span>{{reply.likeCount > 0 ? reply.likeCount : ''}}</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="reply-input-row">
+                                            <input type="text" class="reply-input"
+                                                placeholder="Reply to {{comment.username}}..."
+                                                [(ngModel)]="commentReplyInputMap[comment.id]"
+                                                (keyup.enter)="submitReply(post.id, comment.id)">
+                                            <button class="reply-send-btn" (click)="submitReply(post.id, comment.id)"
+                                                [disabled]="!commentReplyInputMap[comment.id]?.trim()">
+                                                Post
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- View Replies Link -->
+                                    <button class="view-replies-link"
+                                        *ngIf="(comment.replyCount || 0) > 0 && !commentReplyOpenMap[comment.id]"
+                                        (click)="toggleReplies(comment.id)">
+                                        ——— View {{comment.replyCount}} {{comment.replyCount === 1 ? 'reply' :
+                                        'replies'}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div *ngIf="commentsMap[post.id]?.length === 0" class="no-comments">
+                                No comments yet. Be the first!
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                }
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar (Trending/Suggestions) -->
+        <aside class="widgets-column">
+            <!-- Analytics Overview Widget -->
+            <div class="widget-card glass-card mb-4" *ngIf="analyticsOverview || isLoadingAnalytics">
+                <div class="widget-header">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Live Analytics</h3>
+                </div>
+                <div class="widget-content">
+                    <div *ngIf="isLoadingAnalytics"
+                        style="text-align: center; color: var(--text-secondary); padding: 1rem;">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    </div>
+
+                    <div *ngIf="!isLoadingAnalytics && analyticsOverview" class="analytics-grid">
+                        <div class="analytic-item">
+                            <i class="fa-solid fa-eye"
+                                style="color: #6366f1; margin-bottom: 0.5rem; font-size: 1rem;"></i>
+                            <span class="value">{{(analyticsOverview?.totalViews || 0) | number}}</span>
+                            <span class="label">Total Views</span>
+                        </div>
+                        <div class="analytic-item">
+                            <i class="fa-solid fa-heart"
+                                style="color: #ef4444; margin-bottom: 0.5rem; font-size: 1rem;"></i>
+                            <span class="value">{{(analyticsOverview?.totalLikes || 0) | number}}</span>
+                            <span class="label">Total Likes</span>
+                        </div>
+                        <div class="analytic-item">
+                            <i class="fa-solid fa-share"
+                                style="color: #f59e0b; margin-bottom: 0.5rem; font-size: 1rem;"></i>
+                            <span class="value">{{(analyticsOverview?.totalShares || 0) | number}}</span>
+                            <span class="label">Total Shares</span>
+                        </div>
+                        <div class="analytic-item">
+                            <i class="fa-solid fa-comment"
+                                style="color: #3b82f6; margin-bottom: 0.5rem; font-size: 1rem;"></i>
+                            <span class="value">{{(analyticsOverview?.totalComments || 0) | number}}</span>
+                            <span class="label">Total Comments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-card glass-card">
+                <div class="widget-header">
+                    <i class="fa-solid fa-fire" style="color: #f97316;"></i>
+                    <h3>Trending Topics</h3>
+                </div>
+                <div class="widget-content trending-list">
+                    <a class="trend-item" *ngFor="let topic of trendingTopics; let i = index"
+                        [routerLink]="['/explore']" [queryParams]="{q: '#' + topic}"
+                        style="text-decoration: none; cursor: pointer;">
+                        <span class="category">{{i + 1}} · Trending</span>
+                        <span class="trend-tag">#{{topic}}</span>
+                    </a>
+                    <div *ngIf="trendingTopics.length === 0" style="text-align: center; padding: 1.25rem 0.5rem;">
+                        <i class="fa-solid fa-hashtag" style="font-size: 1.5rem; color: var(--text-muted); opacity: 0.3; margin-bottom: 0.5rem; display: block;"></i>
+                        <p style="color: var(--text-muted); font-size: 0.82rem; margin: 0; font-weight: 500;">No trending topics right now</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Networking Tips Widget -->
+            <div class="widget-card glass-card">
+                <div class="widget-header">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--accent-primary)"></i>
+                    <h3>Networking Tips</h3>
+                </div>
+                <div class="widget-content">
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                            <p>Connect with people in your industry to expand your professional reach.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-comments"></i>
+                            <p>Engage with posts by leaving meaningful comments to build relationships.</p>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-chart-line"></i>
+                            <p>Post updates regularly to stay visible in your network's feed.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Share Modal -->
+<div *ngIf="shareModalOpen" class="share-modal-overlay" (click)="closeShareModal()">
+    <div class="share-modal glass-card" (click)="$event.stopPropagation()">
+        <div class="share-modal-header">
+            <h3><i class="fa-solid fa-share-nodes"></i> Share Post</h3>
+            <button class="share-modal-close" (click)="closeShareModal()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Post Preview -->
+        <ng-container *ngIf="sharePostId">
+            <div *ngFor="let post of posts">
+                <div *ngIf="post.id === sharePostId" class="share-post-preview"
+                    style="margin: 0 1rem; padding: 0.75rem; background: var(--glass-highlight, rgba(255,255,255,0.03)); border-radius: 10px; border: 1px solid var(--border-color-light, rgba(255,255,255,0.06)); display: flex; gap: 0.75rem; align-items: flex-start;">
+                    <img [src]="post.authorProfilePicture || 'https://ui-avatars.com/api/?name=' + post.authorName + '&background=random'"
+                        style="width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;" [alt]="post.authorName">
+                    <div style="flex: 1; min-width: 0;">
+                        <strong style="font-size: 0.85rem; color: var(--text-primary);">{{post.authorName}}</strong>
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.25rem 0 0; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                            {{cleanPostContent(post.content)}}
+                        </p>
+                        <img *ngIf="post.mediaUrls?.length && !post.mediaUrls[0]?.includes('.mp4')" [src]="post.mediaUrls[0]"
+                            style="width: 100%; max-height: 120px; object-fit: cover; border-radius: 6px; margin-top: 0.5rem;">
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Copy Link -->
+        <div style="margin: 0.75rem 1rem; display: flex; gap: 0.5rem;">
+            <button class="btn-secondary" (click)="copyPostLink()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.6rem; border-radius: 8px; font-size: 0.85rem;">
+                <i class="fa-solid fa-link"></i> Copy Link
+            </button>
+        </div>
+
+        <div class="share-modal-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" [(ngModel)]="shareUserSearch" placeholder="Search people you follow..." autofocus>
+        </div>
+        <div class="share-modal-list">
+            <div *ngIf="followingUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading...
+            </div>
+            <div *ngIf="followingUsers.length > 0 && filteredShareUsers.length === 0" class="share-empty">
+                <i class="fa-solid fa-user-xmark"></i> No users found
+            </div>
+            <div class="share-user-row" *ngFor="let user of filteredShareUsers">
+                <img [src]="user.profilePicture || 'https://ui-avatars.com/api/?name=' + user.name + '&background=random'"
+                    class="share-user-avatar" [alt]="user.name">
+                <div class="share-user-info">
+                    <span class="share-user-name">{{user.name}}</span>
+                    <span class="share-user-handle">&#64;{{user.username}}</span>
+                </div>
+                <button class="share-send-btn" [class.sent]="shareSuccessMap[user.userId]"
+                    [disabled]="shareSendingMap[user.userId] || shareSuccessMap[user.userId]"
+                    (click)="sendPostToUser(user.userId)">
+                    <i *ngIf="shareSendingMap[user.userId]" class="fa-solid fa-circle-notch fa-spin"></i>
+                    <i *ngIf="!shareSendingMap[user.userId]" [class]="shareSuccessMap[user.userId] ? 'fa-solid fa-check' : 'fa-solid fa-paper-plane'"></i>
+                    {{ shareSendingMap[user.userId] ? 'Sending...' : (shareSuccessMap[user.userId] ? 'Sent' : 'Send') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

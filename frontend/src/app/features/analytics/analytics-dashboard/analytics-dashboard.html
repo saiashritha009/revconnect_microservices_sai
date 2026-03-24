@@ -1,0 +1,285 @@
+<div class="app-layout">
+    <app-navbar></app-navbar>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar-column">
+            <app-sidebar></app-sidebar>
+        </aside>
+
+        <!-- Analytics Content -->
+        <main class="feed-column">
+            <header class="analytics-header glass-card">
+                <div class="header-main">
+                    <h1>{{ currentUser?.userType === 'BUSINESS' ? 'Business Insights' : 'Creator Dashboard' }}</h1>
+                    <p>Advanced metrics & audience analytics for {{ currentUser?.name || 'your brand' }}</p>
+                </div>
+                <div class="period-selector glass-pill">
+                    <button [class.active]="activePeriod === 7" (click)="setPeriod(7)">Week</button>
+                    <button [class.active]="activePeriod === 30" (click)="setPeriod(30)">Month</button>
+                    <button [class.active]="activePeriod === 90" (click)="setPeriod(90)">Quarter</button>
+                </div>
+            </header>
+
+            <!-- Loading State -->
+            <div *ngIf="isLoading" class="glass-card" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                <i class="fa-solid fa-chart-line fa-2x fa-beat-fade" style="margin-bottom: 1rem; color: var(--accent-primary);"></i>
+                <p>Loading analytics data...</p>
+            </div>
+
+            <!-- Overview Stats Grid -->
+            <section class="overview-grid" *ngIf="!isLoading && overview">
+                <div class="stat-card glass-card" title="Number of times your posts have been viewed by others">
+                    <div class="icon-box views"><i class="fa-solid fa-eye"></i></div>
+                    <div class="stat-info">
+                        <span class="label">Total Reach</span>
+                        <h2 class="value">{{(overview.totalViews || 0).toLocaleString()}}</h2>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Post impressions & views</small>
+                    </div>
+                </div>
+                <div class="stat-card glass-card" title="Total likes received on all your posts">
+                    <div class="icon-box likes"><i class="fa-solid fa-heart"></i></div>
+                    <div class="stat-info">
+                        <span class="label">Engagements</span>
+                        <h2 class="value">{{(overview.totalLikes || 0).toLocaleString()}}</h2>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Likes on your posts</small>
+                    </div>
+                </div>
+                <div class="stat-card glass-card" title="Current number of people following your account">
+                    <div class="icon-box followers"><i class="fa-solid fa-users"></i></div>
+                    <div class="stat-info">
+                        <span class="label">Followers</span>
+                        <h2 class="value">{{(overview.totalFollowers || 0).toLocaleString()}}</h2>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">People following you</small>
+                    </div>
+                </div>
+                <div class="stat-card glass-card" title="Total number of posts you have published">
+                    <div class="icon-box posts"><i class="fa-solid fa-paper-plane"></i></div>
+                    <div class="stat-info">
+                        <span class="label">Total Content</span>
+                        <h2 class="value">{{(overview.totalPosts || 0).toLocaleString()}}</h2>
+                        <small style="color: var(--text-muted); font-size: 0.7rem;">Posts published by you</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Visualizations -->
+            <div class="analytics-body" *ngIf="!isLoading">
+                <!-- Follower Growth: Shows how your follower count has changed over the selected period -->
+                <div class="card glass-card chart-visualization">
+                    <div class="card-header">
+                        <h3>Follower Momentum</h3>
+                        <span class="badge">Last {{activePeriod}} days</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0 0 0.5rem 0;">Tracks your follower count changes over time</p>
+                    <div class="growth-chart" *ngIf="getMaxGrowthValue() > 0">
+                        <div class="bar-container" *ngFor="let entry of followerGrowth">
+                            <div class="chart-bar" [style.height]="getBarHeight(entry.followers, getMaxGrowthValue())">
+                                <div class="chart-tooltip">
+                                    <span class="val">{{entry.followers}}</span>
+                                    <span class="dt">{{entry.date | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <span class="chart-label">{{entry.date | date:'MM/dd'}}</span>
+                        </div>
+                    </div>
+                    <div class="empty-visualization" *ngIf="getMaxGrowthValue() === 0" style="padding: 2rem 1rem;">
+                        <i class="fa-solid fa-chart-line" style="font-size: 2rem; opacity: 0.3; margin-bottom: 0.5rem;"></i>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">No follower activity yet. Growth data will appear as your audience builds.</p>
+                    </div>
+                </div>
+
+                <!-- Performance Breakdown: Shows how each of your posts is performing -->
+                <div class="card glass-card performance-breakdown">
+                    <div class="card-header">
+                        <h3>Content Performance</h3>
+                        <div class="actions">
+                            <i class="fa-solid fa-download" title="Export CSV" (click)="exportCsv()" style="cursor:pointer;"></i>
+                        </div>
+                    </div>
+                    <div class="performance-table">
+                        <div class="table-row table-head">
+                            <span class="col-main">Media & Content</span>
+                            <span class="col-num">Views</span>
+                            <span class="col-num">Likes</span>
+                            <span class="col-num">Engagement</span>
+                        </div>
+                        <div class="table-row" *ngFor="let post of postPerformance">
+                            <span class="col-main truncate">{{getCleanContent(post.content)}}</span>
+                            <span class="col-num">{{(post.views || 0).toLocaleString()}}</span>
+                            <span class="col-num">{{(post.likes || 0).toLocaleString()}}</span>
+                            <span class="col-num accent-val">{{ (((post.likes || 0) + (post.comments || 0)) / ((post.views || 0) || 1) *
+                                100).toFixed(1) }}%</span>
+                        </div>
+                        <div class="empty-table" *ngIf="postPerformance.length === 0">
+                            <p>No activity recorded in this period</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Follower Demographics -->
+                <div class="charts-row"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem;">
+                    <div class="card glass-card demographics-card">
+                        <div class="card-header">
+                            <h3>Audience Demographics</h3>
+                            <span class="badge">Follower Segments</span>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0 0 0.5rem 0; padding: 0 0;">Breakdown of your followers by account type</p>
+                        <div class="demographics-list" style="padding: 1rem 0;" *ngIf="audienceDemographics && audienceDemographics.totalFollowers > 0">
+                            <div class="demo-item"
+                                style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; align-items: center;">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">Personal Accounts</span>
+                                <div
+                                    style="flex: 1; height: 8px; background: rgba(59, 130, 246, 0.1); margin: 0 1rem; border-radius: 4px; overflow: hidden;">
+                                    <div [style.width.%]="((audienceDemographics.personal || 0) / (audienceDemographics.totalFollowers || 1)) * 100"
+                                        style="height: 100%; background: var(--accent-primary);"></div>
+                                </div>
+                                <span style="font-size: 0.85rem; font-weight: 600;">
+                                    {{ (((audienceDemographics.personal || 0) / (audienceDemographics.totalFollowers || 1)) *
+                                    100).toFixed(0) }}%
+                                </span>
+                            </div>
+                            <div class="demo-item"
+                                style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; align-items: center;">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">Creators & Artists</span>
+                                <div
+                                    style="flex: 1; height: 8px; background: rgba(59, 130, 246, 0.1); margin: 0 1rem; border-radius: 4px; overflow: hidden;">
+                                    <div [style.width.%]="((audienceDemographics.creator || 0) / (audienceDemographics.totalFollowers || 1)) * 100"
+                                        style="height: 100%; background: var(--accent-secondary);"></div>
+                                </div>
+                                <span style="font-size: 0.85rem; font-weight: 600;">
+                                    {{ (((audienceDemographics.creator || 0) / (audienceDemographics.totalFollowers || 1)) *
+                                    100).toFixed(0) }}%
+                                </span>
+                            </div>
+                            <div class="demo-item"
+                                style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">Business Accounts</span>
+                                <div
+                                    style="flex: 1; height: 8px; background: rgba(59, 130, 246, 0.1); margin: 0 1rem; border-radius: 4px; overflow: hidden;">
+                                    <div [style.width.%]="((audienceDemographics.business || 0) / (audienceDemographics.totalFollowers || 1)) * 100"
+                                        style="height: 100%; background: #10b981;"></div>
+                                </div>
+                                <span style="font-size: 0.85rem; font-weight: 600;">
+                                    {{ (((audienceDemographics.business || 0) / (audienceDemographics.totalFollowers || 1)) *
+                                    100).toFixed(0) }}%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="empty-visualization" *ngIf="!audienceDemographics || audienceDemographics.totalFollowers === 0"
+                            style="text-align: center; padding: 1.5rem;">
+                            <i class="fa-solid fa-users" style="font-size: 1.5rem; opacity: 0.3; margin-bottom: 0.5rem; display: block;"></i>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Demographics will populate as followers join your network.</p>
+                        </div>
+                    </div>
+
+                    <div class="card glass-card engagement-card">
+                        <div class="card-header">
+                            <h3>Engagement Metrics</h3>
+                            <span class="badge">Engagement Ratio</span>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0 0 0.5rem 0; padding: 0 0;">Average interactions (likes + comments + shares) per post</p>
+                        <div class="engagement-metrics" style="padding: 1rem 0;">
+                            <div class="metric-circle" style="display: flex; align-items: center; gap: 1.5rem;"
+                                *ngIf="engagement">
+                                <div
+                                    style="width: 80px; height: 80px; border-radius: 50%; border: 6px solid var(--accent-primary); border-top-color: transparent; display: flex; align-items: center; justify-content: center;">
+                                    <span
+                                        style="font-size: 1.25rem; font-weight: 700; color: var(--accent-primary);">{{engagement.engagementRate || 0}}%</span>
+                                </div>
+                                <div class="metric-details">
+                                    <div style="margin-bottom: 0.5rem;">
+                                        <small style="color: var(--text-muted); display: block;">ReachEfficiency</small>
+                                        <strong style="color: var(--text-primary);">{{ engagement.engagementRate > 5 ?
+                                            'High Visibility' : 'Stable Reach' }}</strong>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--text-muted); display: block;">Interactions</small>
+                                        <strong
+                                            style="color: #10b981;">{{(engagement.totalInteractions || 0).toLocaleString()}}
+                                            total</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="!engagement" style="text-align: center; padding: 1.5rem;">
+                                <p style="color: var(--text-muted); font-style: italic;">Analyzing activity ratio...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Widgets Column (Placeholder to maintain balance) -->
+        <aside class="widgets-column">
+            <!-- High Discovery Content moved here for better balance -->
+            <div class="widget-card glass-card top-ranked">
+                <div class="widget-header" style="display: flex; align-items: center; justify-content: space-between;">
+                    <h3>High Discovery</h3>
+                    <button class="refresh-news-btn" (click)="randomizeNews()" title="Refresh stories">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>
+                <div class="content-mosaic">
+                    <!-- Global/Local News Mock Items -->
+                    <div class="mosaic-item" *ngFor="let news of randomNews">
+                        <div class="mosaic-preview">
+                            <img [src]="news.imageUrl" [alt]="news.category">
+                            <div class="mosaic-overlay">
+                                <span class="category-badge">{{news.category}}</span>
+                            </div>
+                        </div>
+                        <div class="mosaic-footer">
+                            <h4>{{news.title}}</h4>
+                            <p>{{news.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-card glass-card mt-3">
+                <div class="widget-header">
+                    <h3>Account Insights</h3>
+                </div>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <div class="insight-icon" style="color: #10b981;"><i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i></div>
+                        <div>
+                            <p class="insight-title">Current Session</p>
+                            <small>Logged in {{getSessionDuration()}}</small>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <p class="insight-title">Login Time</p>
+                            <small>{{getLoginTime()}}</small>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div>
+                            <p class="insight-title">Account Created</p>
+                            <small>{{currentUser?.createdAt ? (currentUser?.createdAt | date:'mediumDate') : 'N/A'}}</small>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                        <div>
+                            <p class="insight-title">Avg. Engagement</p>
+                            <small>{{getAvgEngagement()}} per post</small>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <div>
+                            <p class="insight-title">Best Posting Time</p>
+                            <small>{{getBestPostTime()}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
