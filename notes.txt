@@ -1,0 +1,25 @@
+ CREATE DATABASE IF NOT EXISTS user_db;
+  CREATE DATABASE IF NOT EXISTS post_db;
+  CREATE DATABASE IF NOT EXISTS interaction_db;
+  CREATE DATABASE IF NOT EXISTS connection_db;
+  CREATE DATABASE IF NOT EXISTS notification_db;
+
+  ---
+  cd frontend
+  npm start
+
+  --
+  mvn clean package
+
+java -jar eureka-server/target/eureka-server-1.0.0.jar
+wait
+
+java -jar config-server/target/config-server-1.0.0.jar
+java -jar api-gateway/target/api-gateway-1.0.0.jar
+
+java -jar user-service/target/user-service-1.0.0.jar
+java -jar post-service/target/post-service-1.0.0.jar
+java -jar feed-service/target/feed-service-1.0.0.jar
+java -jar interaction-service/target/interaction-service-1.0.0.jar
+java -jar connection-service/target/connection-service-1.0.0.jar
+java -jar notification-service/target/notification-service-1.0.0.jar

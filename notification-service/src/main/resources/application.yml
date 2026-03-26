@@ -6,7 +6,7 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888
   datasource:
-    url: jdbc:mysql://localhost:3311/notification_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/notification_db?createDatabaseIfNotExist=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

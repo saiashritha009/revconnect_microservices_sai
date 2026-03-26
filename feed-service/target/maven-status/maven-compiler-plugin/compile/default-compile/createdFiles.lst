@@ -1,6 +1,6 @@
-org/revature/revconnect/feedservice/client/PostServiceClient.class
-org/revature/revconnect/feedservice/FeedServiceApplication.class
-org/revature/revconnect/feedservice/dto/response/ApiResponse.class
-org/revature/revconnect/feedservice/client/ConnectionServiceClient.class
-org/revature/revconnect/feedservice/dto/response/ApiResponse$ApiResponseBuilder.class
-org/revature/revconnect/feedservice/controller/FeedController.class
+org\revature\revconnect\feedservice\FeedServiceApplication.class
+org\revature\revconnect\feedservice\client\PostServiceClient.class
+org\revature\revconnect\feedservice\controller\FeedController.class
+org\revature\revconnect\feedservice\client\ConnectionServiceClient.class
+org\revature\revconnect\feedservice\dto\response\ApiResponse$ApiResponseBuilder.class
+org\revature\revconnect\feedservice\dto\response\ApiResponse.class
